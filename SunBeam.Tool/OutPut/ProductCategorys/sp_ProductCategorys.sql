@@ -1,0 +1,153 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE  proc [dbo].[sp_ProductCategorys]
+(
+@Id		int = null,
+@Code		nvarchar(20) = null,
+@Name		nvarchar(200) = null,
+@Remarks		nvarchar(500) = null,
+@IsActive		bit = null,
+@IsArchive		bit = null,
+@CreatedBy		nvarchar(50) = null,
+@CreatedAt		nvarchar(50) = null,
+@CreatedFrom		nvarchar(50) = null,
+@LastUpdateBy		nvarchar(50) = null,
+@LastUpdateAt		nvarchar(50) = null,
+@LastUpdateFrom		nvarchar(50) = null,
+
+@Msg				nvarchar(MAX)=null OUT ,
+@pOptions			int 
+)
+AS
+--Save ProductCategorys
+if(@pOptions=1)
+begin
+INSERT INTO ProductCategorys
+(
+Id,
+Code,
+Name,
+Remarks,
+IsActive,
+IsArchive,
+CreatedBy,
+CreatedAt,
+CreatedFrom,
+LastUpdateBy,
+LastUpdateAt,
+LastUpdateFrom
+
+)
+VALUES
+(	
+@Id,
+@Code,
+@Name,
+@Remarks,
+@IsActive,
+@IsArchive,
+@CreatedBy,
+@CreatedAt,
+@CreatedFrom,
+@LastUpdateBy,
+@LastUpdateAt,
+@LastUpdateFrom
+
+)
+IF @@ROWCOUNT = 0
+Begin
+SET @Msg='Warning: No rows were Inserted';	
+End
+Else
+Begin
+SET @Msg='Data Saved Successfully';	
+End					
+end
+--End of Save ProductCategorys
+
+
+
+--Update ProductCategorys 
+if(@pOptions=2)
+begin
+UPDATE	ProductCategorys 
+SET
+Code	=	@Code ,
+Name	=	@Name ,
+Remarks	=	@Remarks ,
+IsActive	=	@IsActive ,
+IsArchive	=	@IsArchive ,
+CreatedBy	=	@CreatedBy ,
+CreatedAt	=	@CreatedAt ,
+CreatedFrom	=	@CreatedFrom ,
+LastUpdateBy	=	@LastUpdateBy ,
+LastUpdateAt	=	@LastUpdateAt ,
+LastUpdateFrom	=	@LastUpdateFrom 
+
+
+
+
+WHERE	Id	=	@Id;
+
+
+
+IF @@ROWCOUNT = 0
+Begin
+SET @Msg='Warning: No rows were Updated';	
+End
+Else
+Begin
+SET @Msg='Data Updated Successfully';
+End
+End
+--End of Update ProductCategorys 
+
+
+
+--Delete ProductCategorys
+
+
+
+if(@pOptions=3)
+begin
+Delete from ProductCategorys Where Id=@Id;
+SET @Msg='Data Deleted Successfully';
+end
+
+
+
+--End of Delete ProductCategorys 
+
+
+
+--Select All ProductCategorys 
+
+
+
+if(@pOptions=4)
+begin	        
+select * from ProductCategorys;
+if(@@ROWCOUNT=0)
+SET @Msg='Data Not Found';
+end
+
+
+
+--End of Select All ProductCategorys 
+
+
+
+--Select ProductCategorys By Id 
+if(@pOptions=5)
+begin
+select * from ProductCategorys Where Id=@Id;
+
+
+
+if(@@ROWCOUNT=0)
+SET @Msg='Data Not Found';
+end
+--End of Select ProductCategorys By Id 
