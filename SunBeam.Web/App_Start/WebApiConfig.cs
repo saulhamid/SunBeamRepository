@@ -1,8 +1,4 @@
-﻿using SunBeam.Service.Implementations;
-using SunBeam.Service.Interfaces;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Web.Http;
-using System.Web.Mvc;
+﻿using System.Web.Http;
 
 namespace SunBeam.Web
 {

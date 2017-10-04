@@ -18,7 +18,6 @@ namespace SunBeam.Tool
             var firstOrDefault = tableSchema.FirstOrDefault(p => p.IsIdentity.ToLower() == "true");
             if (firstOrDefault != null)
                 tablePk = firstOrDefault;
-            if (tableName == "LiveCustomerPersonalInfo" || tableName == "LiveCustomerFinancialInfo")
                 tablePk = tableSchema.ElementAt<TableSchema>(0);
             this.currentPath = currentPath + tableName;
         }
@@ -33,13 +32,13 @@ namespace SunBeam.Tool
 
         private void WriteBLClass(StreamWriter writer)
         {
+            writer.WriteLine("using SunBeam.Common.Log;");
+            writer.WriteLine("using SunBeam.Data.Repositories.Implementations;");
+            writer.WriteLine("using SunBeam.Domain.Models;");
             writer.WriteLine("using System;");
             writer.WriteLine("using System.Collections.Generic;");
             writer.WriteLine("using System.Threading.Tasks;");
-            writer.WriteLine("using SunBeam.Common.Log;");
-            writer.WriteLine("using SunBeam.Service.Admin.Interfaces;");
-            writer.WriteLine("using SunBeam.Data.Repositories.Implementations;");
-            writer.WriteLine("using SunBeam.Domain;");
+            writer.WriteLine("");
             writer.WriteLine();
 
             writer.WriteLine("namespace SunBeam.Service.Interfaces");
@@ -52,7 +51,7 @@ namespace SunBeam.Tool
             writer.WriteLine("{");
 
             writer.WriteLine();
-            writer.WriteLine("protected ILogger Logger { get; set; }");
+            writer.WriteLine("protected ILogger logger { get; set; }");
             writer.WriteLine();
 
             WriteBLCtor(writer);
@@ -60,6 +59,8 @@ namespace SunBeam.Tool
             WriteInsertBL(writer);
             writer.WriteLine();
             WriteUpdateBL(writer);
+            writer.WriteLine();
+            WriteIsDeleteBL(writer);
             writer.WriteLine();
             WriteDeleteBL(writer);
             writer.WriteLine();
@@ -70,7 +71,7 @@ namespace SunBeam.Tool
 
             writer.WriteLine();
             writer.WriteLine();
-
+            WriteDropDownBL(writer);
             writer.WriteLine("}");
 
             writer.WriteLine();
@@ -95,7 +96,7 @@ namespace SunBeam.Tool
             writer.WriteLine("/// </summary>");
             writer.WriteLine("/// <param name=\"entity\"></param>");
             writer.WriteLine("/// <returns>Message</returns>");
-            writer.WriteLine("public async Task<string> Insert"  + tableName +"(" + tableName + " entity)");
+            writer.WriteLine("public async Task<string> Insert" + tableName + "(" + tableName + " entity)");
             writer.WriteLine("{");
             writer.WriteLine("try");
             writer.WriteLine("{");
@@ -104,7 +105,7 @@ namespace SunBeam.Tool
             writer.WriteLine("}");
             writer.WriteLine("catch (Exception ex)");
             writer.WriteLine("{");
-            writer.WriteLine("Logger.Error(ex.Message);");
+            writer.WriteLine("logger.Error(ex.Message);");
             writer.WriteLine("throw ex;");
             writer.WriteLine("}");
             writer.WriteLine("}");
@@ -118,21 +119,47 @@ namespace SunBeam.Tool
             writer.WriteLine("/// </summary>");
             writer.WriteLine("/// <param name=\"entity\"></param>");
             writer.WriteLine("/// <returns>Message</returns>");
-            writer.WriteLine("public async Task<string> Update" + "(" + tableName + " entity)");
+            writer.WriteLine("public async Task<string> Update" + tableName + "(" + tableName + " entity)");
             writer.WriteLine("{");
             writer.WriteLine("try");
             writer.WriteLine("{");
 
-            writer.WriteLine("var result = await new HoliDayRepository(logger).Update(entity);");
+            writer.WriteLine("var result = await new "+tableName+"Repository(logger).Update(entity);");
             writer.WriteLine("return result;");
             writer.WriteLine("}");
             writer.WriteLine("catch (Exception ex)");
             writer.WriteLine("{");
-            writer.WriteLine("Logger.Error(ex.Message);");
+            writer.WriteLine("logger.Error(ex.Message);");
             writer.WriteLine("throw ex;");
             writer.WriteLine("}");
             writer.WriteLine("}");
 
+        }
+
+        private void WriteIsDeleteBL(StreamWriter writer)
+        {
+            writer.WriteLine("/// <summary>");
+            writer.WriteLine("/// Delete " + tableName);
+            writer.WriteLine("/// </summary>");
+            writer.WriteLine("/// <param name=\"" + tablePk.ColumnName + "\"></param>");
+            writer.WriteLine("/// <returns>Message</returns>");
+            writer.WriteLine("public async Task<string> IsDelete" + tableName + "(string[] IdList, " + tableName + " entity)");
+            writer.WriteLine("{");
+            writer.WriteLine("string result = string.Empty;");
+            writer.WriteLine("try");
+            writer.WriteLine("{");
+            writer.WriteLine(" for (int i = 0; i < IdList.Length - 1; i++)");
+            writer.WriteLine("{");
+            writer.WriteLine("result = await new " + tableName + "Repository(logger).IsDelete(Convert.ToInt32(IdList[i]), entity);");
+            writer.WriteLine("}");
+            writer.WriteLine("}");
+            writer.WriteLine("catch (Exception ex)");
+            writer.WriteLine("{");
+            writer.WriteLine("logger.Error(ex.Message);");
+            writer.WriteLine("throw ex;");
+            writer.WriteLine("}");
+            writer.WriteLine("return result;");
+            writer.WriteLine("}");
         }
 
         private void WriteDeleteBL(StreamWriter writer)
@@ -142,28 +169,28 @@ namespace SunBeam.Tool
             writer.WriteLine("/// </summary>");
             writer.WriteLine("/// <param name=\"" + tablePk.ColumnName + "\"></param>");
             writer.WriteLine("/// <returns>Message</returns>");
-            writer.WriteLine("public async Task<string> Delete(" + tablePk.DataTypeName + " " + tablePk.ColumnName + ")");
+            writer.WriteLine("public async Task<string> Delete" + tableName + "(int Id)");
             writer.WriteLine("{");
+            writer.WriteLine("string result = string.Empty;");
             writer.WriteLine("try");
             writer.WriteLine("{");
-            writer.WriteLine("var result = await new " + tableName + "Repository(logger).Delete(" + tablePk.ColumnName + ");");            
-            writer.WriteLine("return result;");
+            writer.WriteLine("result = await new " + tableName + "Repository(logger).Delete(Id);");
             writer.WriteLine("}");
             writer.WriteLine("catch (Exception ex)");
             writer.WriteLine("{");
-            writer.WriteLine("Logger.Error(ex.Message);");
+            writer.WriteLine("logger.Error(ex.Message);");
             writer.WriteLine("throw ex;");
             writer.WriteLine("}");
+            writer.WriteLine("return result;");
             writer.WriteLine("}");
         }
-
         private void WriteGetAllBL(StreamWriter writer)
         {
             writer.WriteLine("/// <summary>");
             writer.WriteLine("/// Get All " + tableName);
             writer.WriteLine("/// </summary>");
             writer.WriteLine("/// <returns>List of" + tableName + "</returns>");
-            writer.WriteLine("public async Task<IEnumerable<" + tableName + ">> GetAll()");
+            writer.WriteLine("public async Task<IEnumerable<" + tableName + ">> GetAll" + tableName + "()");
             writer.WriteLine("{");
             writer.WriteLine("try");
             writer.WriteLine("{");
@@ -172,7 +199,7 @@ namespace SunBeam.Tool
             writer.WriteLine("}");
             writer.WriteLine("catch (Exception ex)");
             writer.WriteLine("{");
-            writer.WriteLine("Logger.Error(ex.Message);");
+            writer.WriteLine("logger.Error(ex.Message);");
             writer.WriteLine("throw ex;");
             writer.WriteLine("}");
             writer.WriteLine("}");
@@ -189,12 +216,32 @@ namespace SunBeam.Tool
             writer.WriteLine("{");
             writer.WriteLine("try");
             writer.WriteLine("{");
-            writer.WriteLine("var result = await new " + tableName + "Repository(logger).Get" + tableName + "By" + tablePk.ColumnName + "(" + tablePk.ColumnName + ");");
+            writer.WriteLine("var result = await new " + tableName + "Repository(logger).GetBy" + tablePk.ColumnName + "(" + tablePk.ColumnName + ");");
             writer.WriteLine("return result;");
             writer.WriteLine("}");
             writer.WriteLine("catch (Exception ex)");
             writer.WriteLine("{");
-            writer.WriteLine("Logger.Error(ex.Message);");
+            writer.WriteLine("logger.Error(ex.Message);");
+            writer.WriteLine("throw ex;");
+            writer.WriteLine("}");
+            writer.WriteLine("}");
+        }
+        private void WriteDropDownBL(StreamWriter writer)
+        {
+            writer.WriteLine("/// <summary>");
+            writer.WriteLine("/// Get Id , Name " + tableName);
+            writer.WriteLine("/// </summary>");
+            writer.WriteLine("/// <returns>List of" + tableName + "</returns>");
+            writer.WriteLine("public async Task<IEnumerable<" + tableName + ">> DropDown" + tableName + "()");
+            writer.WriteLine("{");
+            writer.WriteLine("try");
+            writer.WriteLine("{");
+            writer.WriteLine("var result = await new " + tableName + "Repository(logger).Dropdown();");
+            writer.WriteLine("return result;");
+            writer.WriteLine("}");
+            writer.WriteLine("catch (Exception ex)");
+            writer.WriteLine("{");
+            writer.WriteLine("logger.Error(ex.Message);");
             writer.WriteLine("throw ex;");
             writer.WriteLine("}");
             writer.WriteLine("}");

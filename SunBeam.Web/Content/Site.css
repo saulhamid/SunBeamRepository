@@ -22,3 +22,6 @@ select,
 textarea {
     max-width: 280px;
 }
+.required {
+    border-bottom: 2px solid #f20 !important;
+}

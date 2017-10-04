@@ -1,15 +1,17 @@
-using FXTF.CRM.Model.Model.Admin;
+using SunBeam.Domain.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FXTF.CRM.Service.Admin.Interfaces
+namespace SunBeam.Service.Interfaces
 {
-    public interface IProductsBL
-    {
+public interface IProductsBL
+{
 Task<string> InsertProducts(Products entity);
 Task<string> UpdateProducts(Products entity);
-Task<string> DeleteProducts(Products entity);
+Task<string> IsDeleteProducts(string[] IdList,Products entity);
+Task<string> DeleteProducts(int Id);
 Task<IEnumerable<Products>> GetAllProducts();
-Task<Products> GetProductsById(int Id)
-    }
+Task<Products> GetProductsById(int Id);
+Task<IEnumerable<Products>> DropDownProducts();
+  }
 }

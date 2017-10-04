@@ -141,7 +141,6 @@ namespace SunBeam.Data.Infrastructure
                 }
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
-
                 await Task.FromResult(cmd.ExecuteNonQuery());
                 return (string)cmd.Parameters["@Msg"].Value;
             }
@@ -250,7 +249,23 @@ namespace SunBeam.Data.Infrastructure
             {
                 switch (TableName)
                 {
+                  
+                    case "EnumCountry": return new EnumCountryRepository(logger).Mapping(sqldatareader);
+                    case "ProductColor": return new ProductColorRepository(logger).Mapping(sqldatareader);
                     case "Customers": return new CustomersRepository(logger).Mapping(sqldatareader);
+                    case "Employee": return new EmployeeRepository(logger).Mapping(sqldatareader);
+                    case "ZoneOrAreas": return new ZoneOrAreasRepository(logger).Mapping(sqldatareader);
+                    case "Markets": return new MarketsRepository(logger).Mapping(sqldatareader); 
+                    case "ProductBrand": return new ProductBrandsRepository(logger).Mapping(sqldatareader); 
+                    case "ProductSize": return new ProductSizeRepository(logger).Mapping(sqldatareader);
+                    case "ProductType": return new ProductTypesRepository(logger).Mapping(sqldatareader);
+                    case "UOM": return new UOMRepository(logger).Mapping(sqldatareader);
+                    case "Products": return new ProductsRepository(logger).Mapping(sqldatareader);
+                    case "Suppliers": return new SuppliersRepository(logger).Mapping(sqldatareader);
+                    case "ProductCategory": return new ProductCategorysRepository(logger).Mapping(sqldatareader);
+                    case "Purchases": return new PurchasesRepository(logger).Mapping(sqldatareader);
+                    case "PurcheaseDetails": return new PurcheaseDetailsRepository(logger).Mapping(sqldatareader);
+
                     default: return null;
                 }
             }

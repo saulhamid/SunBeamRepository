@@ -45,6 +45,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
       <Private>True</Private>
@@ -64,6 +65,9 @@
     <Compile Include="Model\EnumCountry.cs" />
     <Compile Include="Model\EnumDistric.cs" />
     <Compile Include="Model\EnumDivision.cs" />
+    <Compile Include="Model\JQueryDataTableParamModel.cs" />
+    <Compile Include="Model\JQueryDataTableParamVM.cs" />
+    <Compile Include="Model\Markets.cs" />
     <Compile Include="Model\Organization.cs" />
     <Compile Include="Model\ProductAssign.cs" />
     <Compile Include="Model\ProductAssignDetail.cs" />
@@ -73,7 +77,7 @@
     <Compile Include="Model\ProductDetail.cs" />
     <Compile Include="Model\Products.cs" />
     <Compile Include="Model\ProductSize.cs" />
-    <Compile Include="Model\ProductType.cs" />
+    <Compile Include="Model\ProductTypes.cs" />
     <Compile Include="Model\Purchase.cs" />
     <Compile Include="Model\PurcheaseDetail.cs" />
     <Compile Include="Model\PurcheaseReturn.cs" />

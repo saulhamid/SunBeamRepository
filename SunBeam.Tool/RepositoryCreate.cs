@@ -17,9 +17,11 @@ namespace SunBeam.Tool
         {
             Add = 1,
             Update = 2,
-            Delete = 3,
-            SelectAll = 4,
-            SelectById = 5
+            IsDelete = 3,
+            Delete = 4,
+            SelectAll = 5,
+            SelectById = 6,
+            Dropdown = 7
         }
 
         public RepositoryCreate(string tableName, List<TableSchema> tableSchema, string path)
@@ -28,7 +30,7 @@ namespace SunBeam.Tool
             var firstOrDefault = tableSchema.FirstOrDefault(p => p.IsIdentity.ToLower() == "true");
             if (firstOrDefault != null)
                 _tablePk = firstOrDefault;
-            if (tableName == "LiveCustomerPersonalInfo" || tableName == "LiveCustomerFinancialInfo")
+            
                 _tablePk = tableSchema.ElementAt<TableSchema>(0);
             _tableName = tableName;
             strOutPutPath = path + tableName;
@@ -78,12 +80,15 @@ namespace SunBeam.Tool
             writer.WriteLine();
             WriteDelete(writer);
             writer.WriteLine();
+            WriteIsDelete(writer);
+            writer.WriteLine();
             WriteGetAllModel(writer);
             writer.WriteLine();
             WriteGetByPkIdModel(writer);
             writer.WriteLine();
             WriteModelMapping(writer);
-
+            writer.WriteLine();
+            WriteDropdownModel(writer);
 
             writer.WriteLine();
             writer.WriteLine();
@@ -92,7 +97,6 @@ namespace SunBeam.Tool
 
             writer.WriteLine();
             writer.WriteLine();
-
             writer.WriteLine("}");
         }
 
@@ -176,6 +180,43 @@ namespace SunBeam.Tool
 
         }
 
+        private void WriteIsDelete(StreamWriter writer)
+        {
+            writer.WriteLine("/// <summary>");
+            writer.WriteLine("/// Delete " + _tableName);
+            writer.WriteLine("/// </summary>");
+            writer.WriteLine("/// <param name=\"" + _tablePk.ColumnName + "\"></param>");
+            writer.WriteLine("/// <returns>Message</returns>");
+            writer.WriteLine("public async Task<string> IsDelete" + "(" + _tablePk.DataTypeName + " " + _tablePk.ColumnName + "," + _tableName + " entity)");
+            writer.WriteLine("{");
+            writer.WriteLine("try");
+            writer.WriteLine("{");
+            writer.WriteLine("var cmd = new SqlCommand(\"sp_" + _tableName + "\");");
+            writer.WriteLine("cmd.Parameters.AddWithValue(\"@" + _tablePk.ColumnName + "\", " + _tablePk.ColumnName + ");");
+            writer.WriteLine("cmd.Parameters.AddWithValue(\"@IsArchive \", \"true\");");
+            writer.WriteLine("cmd.Parameters.AddWithValue(\"@LastUpdateBy \", entity.LastUpdateBy);");
+            writer.WriteLine("cmd.Parameters.AddWithValue(\"@LastUpdateAt \", entity.LastUpdateAt);");
+            writer.WriteLine("cmd.Parameters.AddWithValue(\"@LastUpdateFrom \", entity.LastUpdateFrom);");
+            writer.WriteLine("cmd.Parameters.Add(\"@Msg\", SqlDbType.NChar, 500);");
+            writer.WriteLine();
+            writer.WriteLine();
+            writer.WriteLine("cmd.Parameters[\"@Msg\"].Direction = ParameterDirection.Output;");
+            writer.WriteLine("cmd.Parameters.AddWithValue(\"@pOptions\", " + (int)RepositoryType.IsDelete + ");");
+            writer.WriteLine();
+            writer.WriteLine();
+
+            writer.WriteLine("var result = await ExecuteNonQueryProc(cmd);");
+           
+            writer.WriteLine("return result;");
+            writer.WriteLine("}");
+            writer.WriteLine("catch (Exception ex)");
+            writer.WriteLine("{");
+            writer.WriteLine("Logger.Error(ex.Message);");
+            writer.WriteLine("throw ex;");
+            writer.WriteLine("}");
+            writer.WriteLine("}");
+        }
+
         private void WriteDelete(StreamWriter writer)
         {
             writer.WriteLine("/// <summary>");
@@ -183,7 +224,7 @@ namespace SunBeam.Tool
             writer.WriteLine("/// </summary>");
             writer.WriteLine("/// <param name=\"" + _tablePk.ColumnName + "\"></param>");
             writer.WriteLine("/// <returns>Message</returns>");
-            writer.WriteLine("public async Task<string> Delete" + "(" + _tablePk.DataTypeName + " " + _tablePk.ColumnName + ")");
+            writer.WriteLine("public async Task<string> Delete" + "(" + _tablePk.DataTypeName + " " + _tablePk.ColumnName +")");
             writer.WriteLine("{");
             writer.WriteLine("try");
             writer.WriteLine("{");
@@ -198,10 +239,7 @@ namespace SunBeam.Tool
             writer.WriteLine();
 
             writer.WriteLine("var result = await ExecuteNonQueryProc(cmd);");
-            writer.WriteLine("if (Convert.ToString(result).Trim().Contains(\"Data Deleted Successfully\"))");
-            writer.WriteLine("{");
-            writer.WriteLine("new LiveLogHistoryRepository(logger).Insert(" + _tablePk.ColumnName + ".ToString() + \" has been Deleted.\", 1, 3);");
-            writer.WriteLine("}");
+
             writer.WriteLine("return result;");
             writer.WriteLine("}");
             writer.WriteLine("catch (Exception ex)");
@@ -242,13 +280,35 @@ namespace SunBeam.Tool
             writer.WriteLine("/// </summary>");
             writer.WriteLine("/// <param name=\"" + _tablePk.ColumnName + "\"></param>");
             writer.WriteLine("/// <returns>" + _tableName + " Object</returns>");
-            writer.WriteLine("public async Task<" + _tableName + "> Get" + _tableName + "By" + _tablePk.ColumnName + "(" + _tablePk.DataTypeName + " " + _tablePk.ColumnName + ")");
+            writer.WriteLine("public async Task<" + _tableName + "> GetBy" + _tablePk.ColumnName + "(" + _tablePk.DataTypeName + " " + _tablePk.ColumnName + ")");
             writer.WriteLine("{");
             writer.WriteLine("try");
             writer.WriteLine("{");
             writer.WriteLine("var cmd = new SqlCommand(\"sp_" + _tableName + "\");");
             writer.WriteLine("cmd.Parameters.AddWithValue(\"@" + _tablePk.ColumnName + "\", " + _tablePk.ColumnName + ");");
             writer.WriteLine("cmd.Parameters.AddWithValue(\"@pOptions\", " + (int)RepositoryType.SelectById + ");");
+            writer.WriteLine("var result = await GetByDataReaderProc(cmd);");
+            writer.WriteLine("return result;");
+            writer.WriteLine("}");
+            writer.WriteLine("catch (Exception ex)");
+            writer.WriteLine("{");
+            writer.WriteLine("Logger.Error(ex.Message);");
+            writer.WriteLine("throw ex;");
+            writer.WriteLine("}");
+            writer.WriteLine("}");
+        }
+        private void WriteDropdownModel(StreamWriter writer)
+        {
+            writer.WriteLine("/// <summary>");
+            writer.WriteLine("/// Get Id, Name " + _tableName);
+            writer.WriteLine("/// </summary>");
+            writer.WriteLine("/// <returns>List of" + _tableName + "</returns>");
+            writer.WriteLine("public async Task<IEnumerable<" + _tableName + ">> Dropdown()");
+            writer.WriteLine("{");
+            writer.WriteLine("try");
+            writer.WriteLine("{");
+            writer.WriteLine("var cmd = new SqlCommand(\"sp_" + _tableName + "\");");
+            writer.WriteLine("cmd.Parameters.AddWithValue(\"@pOptions\", " + (int)RepositoryType.Dropdown + ");");
             writer.WriteLine("var result = await GetDataReaderProc(cmd);");
             writer.WriteLine("return result;");
             writer.WriteLine("}");
@@ -259,7 +319,6 @@ namespace SunBeam.Tool
             writer.WriteLine("}");
             writer.WriteLine("}");
         }
-
         private void WriteModelMapping(StreamWriter writer)
         {
             writer.WriteLine("/// <summary>");

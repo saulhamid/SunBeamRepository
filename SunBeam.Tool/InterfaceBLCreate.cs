@@ -18,7 +18,6 @@ namespace SunBeam.Tool
             var firstOrDefault = tableSchema.FirstOrDefault(p => p.IsIdentity.ToLower() == "true");
             if (firstOrDefault != null)
                 tablePk = firstOrDefault;
-            if (tableName == "LiveCustomerPersonalInfo" || tableName == "LiveCustomerFinancialInfo")
                 tablePk = tableSchema.ElementAt<TableSchema>(0);
             this.currentPath = currentPath + tableName;
         }
@@ -27,20 +26,21 @@ namespace SunBeam.Tool
         {
             using (var writer = new StreamWriter(currentPath + "\\I" + tableName + "BL.cs"))
             {
-                writer.WriteLine("using SunBeam.Domain.Models");
+                writer.WriteLine("using SunBeam.Domain.Models;");
                 writer.WriteLine("using System.Collections.Generic;");
                 writer.WriteLine("using System.Threading.Tasks;");
-                writer.WriteLine();
+                writer.WriteLine("");
                 writer.WriteLine("namespace SunBeam.Service.Interfaces");
                 writer.WriteLine("{");
-                writer.WriteLine("    public interface I" + tableName + "BL");
-                writer.WriteLine("    {");
-
+                writer.WriteLine("public interface I" + tableName + "BL");
+                writer.WriteLine("{");
                 writer.WriteLine("Task<string> Insert" + tableName + "(" + tableName + " entity);");
                 writer.WriteLine("Task<string> Update" + tableName + "(" + tableName + " entity);");
+                writer.WriteLine("Task<string> IsDelete" + tableName + "(string[] IdList," + tableName + " entity);");
                 writer.WriteLine("Task<string> Delete" + tableName + "(int Id);");
                 writer.WriteLine("Task<IEnumerable<" + tableName + ">> GetAll" + tableName + "();");
-                writer.WriteLine("Task<" + tableName + "> Get" + tableName + "By" + tablePk.ColumnName + "(" + tablePk.DataTypeName + " " + tablePk.ColumnName + ")");
+                writer.WriteLine("Task<" + tableName + "> Get" + tableName + "By" + tablePk.ColumnName + "(" + tablePk.DataTypeName + " " + tablePk.ColumnName + ");");
+                writer.WriteLine("Task<IEnumerable<" + tableName + ">> DropDown" + tableName + "();");
 
                 writer.WriteLine("  }");
                 writer.WriteLine("}");

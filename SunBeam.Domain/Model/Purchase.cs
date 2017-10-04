@@ -13,13 +13,16 @@ namespace SunBeam.Domain.Models
     using System;
     using System.Collections.Generic;
 
-    public partial class Purchase: BaseEntity
+    public partial class Purchases: BaseEntity
     {
         public int Id { get; set; }
         public string InvoiecNo { get; set; }
         public Nullable<int> SupplierId { get; set; }
+        public string SupplierName { get; set; }
         public Nullable<int> EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
         public string Date { get; set; }
-     
+        public IEnumerable<PurcheaseDetails> PurcheaseDetails { get; set; }
+
     }
 }

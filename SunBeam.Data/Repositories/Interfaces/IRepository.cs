@@ -11,9 +11,10 @@ namespace SunBeam.Data.Repositories.Interfaces
     interface IRepository<T> where T : class
     {
         Task<IEnumerable<T>> GetAll();
-        Task<T> GetByID(long ID);
+        Task<T> GetById(int Id);
         Task<string> Insert(T Entity);
-        Task<string> Delete(long ID);
+        Task<string> IsDelete(int Id, T Entity);
+        Task<string> Delete(int Id);
         Task<string> Update(T Entity);
         T Mapping(SqlDataReader sqldatareader);
     }

@@ -4,15 +4,14 @@ using System.Threading.Tasks;
 
 namespace SunBeam.Service.Interfaces
 {
-    public interface ICustomersBL
-    {
-        Task<string> Insert(Customers entity);
-        Task<string> Update(Customers entity);
-        Task<string> Delete(Customers entity);
-        Task<IEnumerable<Customers>> GetAll();
-        Task<Customers> GetById(int Id);
-    }
+public interface ICustomersBL
+{
+Task<string> InsertCustomers(Customers entity);
+Task<string> UpdateCustomers(Customers entity);
+Task<string> IsDeleteCustomers(string[] IdList,Customers entity);
+Task<string> DeleteCustomers(int Id);
+Task<IEnumerable<Customers>> GetAllCustomers();
+Task<Customers> GetCustomersById(int Id);
+Task<IEnumerable<Customers>> DropDownCustomers();
+  }
 }
-
-
-

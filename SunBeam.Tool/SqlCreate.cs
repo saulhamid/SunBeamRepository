@@ -16,9 +16,11 @@ namespace SunBeam.Tool
         {
             Add = 1,
             Update = 2,
-            Delete = 3,
-            SelectAll = 4,
-            SelectById = 5
+            IsDelete = 3,
+            Delete = 4,
+            SelectAll = 5,
+            SelectById = 6,
+            DropDown = 7
         }
 
         public SqlCreate(string tableName, List<TableSchema> tableSchema, string currentPath)
@@ -28,7 +30,6 @@ namespace SunBeam.Tool
             var firstOrDefault = tableSchema.FirstOrDefault(p => p.IsIdentity.ToLower() == "true");
             if (firstOrDefault != null)
                 tablePk = firstOrDefault;
-            if (tableName == "Customers" || tableName == "Customers")
                 tablePk = tableSchema.ElementAt<TableSchema>(0);
             this.currentPath = currentPath + tableName;
         }
@@ -48,13 +49,17 @@ namespace SunBeam.Tool
 
                 Blank(writer);
 
+                WriteIsDeleteSql(writer);
+                Blank(writer);
                 WriteDeleteSql(writer);
                 Blank(writer);
-
 
                 WriteGetAll(writer);
                 Blank(writer);
                 WriteGetByPk(writer);
+                Blank(writer);
+
+                WriteDropDown(writer);
             }
         }
 
@@ -87,7 +92,7 @@ namespace SunBeam.Tool
             writer.WriteLine("--Select " + tableName + " By " + tablePk.ColumnName + " ");
             writer.WriteLine("if(@pOptions=" + (int)SqlType.SelectById + ")");
             writer.WriteLine("begin");
-            writer.WriteLine("select * from " + tableName + " Where " + tablePk.ColumnName + "=@" + tablePk.ColumnName + ";");
+            writer.WriteLine("select * from " + tableName + " Where " + tablePk.ColumnName + "=@" + tablePk.ColumnName + " and IsArchive=0;");
             Blank(writer);
 
             writer.WriteLine("if(@@ROWCOUNT=0)");
@@ -104,7 +109,7 @@ namespace SunBeam.Tool
 
             writer.WriteLine("if(@pOptions=" + (int)SqlType.SelectAll + ")");
             writer.WriteLine("begin	        ");
-            writer.WriteLine("select * from " + tableName + ";");
+            writer.WriteLine("select * from " + tableName + " where IsArchive=0;");
             writer.WriteLine("if(@@ROWCOUNT=0)");
             writer.WriteLine("SET @Msg='Data Not Found';");
             writer.WriteLine("end");
@@ -113,10 +118,9 @@ namespace SunBeam.Tool
             writer.WriteLine("--End of Select All " + tableName + " ");
 
         }
-
         private void WriteDeleteSql(StreamWriter writer)
         {
-            writer.WriteLine("--Delete " + tableName + "");
+            writer.WriteLine("--IsDelete " + tableName + "");
             Blank(writer);
             writer.WriteLine("if(@pOptions=" + (int)SqlType.Delete + ")");
             writer.WriteLine("begin");
@@ -125,6 +129,27 @@ namespace SunBeam.Tool
             writer.WriteLine("end");
             Blank(writer);
             writer.WriteLine("--End of Delete " + tableName + " ");
+
+
+        }
+        private void WriteIsDeleteSql(StreamWriter writer)
+        {
+            writer.WriteLine("--IsDelete " + tableName + "");
+            Blank(writer);
+            writer.WriteLine("if(@pOptions=" + (int)SqlType.IsDelete + ")");
+            writer.WriteLine("begin");
+            writer.WriteLine("UPDATE	" + tableName + " ");
+
+            writer.WriteLine("SET");
+            writer.WriteLine("IsArchive	=	@IsArchive ,");
+            writer.WriteLine("LastUpdateBy	=	@LastUpdateBy ,");
+            writer.WriteLine("LastUpdateAt	=	@LastUpdateAt ,");
+            writer.WriteLine("LastUpdateFrom	=	@LastUpdateFrom ");
+            writer.WriteLine("WHERE	Id	=	@Id;");
+            writer.WriteLine("SET @Msg='Data Deleted Successfully';");
+            writer.WriteLine("end");
+            Blank(writer);
+            writer.WriteLine("--End of IsDelete " + tableName + " ");
 
 
         }
@@ -163,11 +188,11 @@ namespace SunBeam.Tool
 
             writer.WriteLine("IF @@ROWCOUNT = 0");
             writer.WriteLine("Begin");
-            writer.WriteLine("SET @Msg='Warning: No rows were Updated';	");
+            writer.WriteLine("SET @Msg = 'Fail~Warning: No rows were Updated';");
             writer.WriteLine("End");
             writer.WriteLine("Else");
             writer.WriteLine("Begin");
-            writer.WriteLine("SET @Msg='Data Updated Successfully';");
+            writer.WriteLine("SET @Msg = 'Success~Data Updated Successfully';");
             writer.WriteLine("End");
             writer.WriteLine("End");
             writer.WriteLine("--End of Update " + tableName + " ");
@@ -205,14 +230,31 @@ namespace SunBeam.Tool
             writer.WriteLine(")");
             writer.WriteLine("IF @@ROWCOUNT = 0");
             writer.WriteLine("Begin");
-            writer.WriteLine("SET @Msg='Warning: No rows were Inserted';	");
+            writer.WriteLine("SET @Msg='Fail~Warning: No rows were Inserted';");
             writer.WriteLine("End");
             writer.WriteLine("Else");
             writer.WriteLine("Begin");
-            writer.WriteLine("SET @Msg='Data Saved Successfully';	");
+            writer.WriteLine("SET @Msg='Success~Data Saved Successfully';");
             writer.WriteLine("End					");
             writer.WriteLine("end");
             writer.WriteLine("--End of Save " + tableName + "");
+
+        }
+
+        private void WriteDropDown(StreamWriter writer)
+        {
+            writer.WriteLine("--Select Id,Name " + tableName + " ");
+            Blank(writer);
+
+            writer.WriteLine("if(@pOptions=" + (int)SqlType.DropDown + ")");
+            writer.WriteLine("begin	        ");
+            writer.WriteLine("select Id,Name  from " + tableName + " Where IsActive=1 and IsArchive=0;;");
+            writer.WriteLine("if(@@ROWCOUNT=0)");
+            writer.WriteLine("SET @Msg='Data Not Found';");
+            writer.WriteLine("end");
+            Blank(writer);
+
+            writer.WriteLine("--End Select Id,Name " + tableName + " ");
 
         }
     }

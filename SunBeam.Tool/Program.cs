@@ -47,6 +47,8 @@ namespace FXTF.CRM.AtomAP.CGTool
                 interfaceBLCreate.WriteInterfaceBL();
                 BLCreate blCreate = new BLCreate(TableName, _tableSchema, currentPath);
                 blCreate.WriteBL();
+                CreateController createcontroller = new CreateController(TableName, _tableSchema, currentPath);
+                createcontroller.WriteRepositoryClass();
                 SqlCreate sqlCreate = new SqlCreate(TableName, _tableSchema, currentPath);
                 sqlCreate.WriteSql();
                 TableName = "";

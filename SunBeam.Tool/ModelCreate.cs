@@ -19,7 +19,6 @@ namespace SunBeam.Tool
             var firstOrDefault = tableSchema.FirstOrDefault(p => p.IsIdentity.ToLower() == "true");
             if (firstOrDefault != null)
                 _tablePk = firstOrDefault;
-            if (tableName == "LiveCustomerPersonalInfo" || tableName == "LiveCustomerFinancialInfo")
                 _tablePk = tableSchema.ElementAt<TableSchema>(0);
             _tableName = tableName;
             strOutPutPath = path + tableName;

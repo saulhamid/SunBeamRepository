@@ -13,7 +13,7 @@ namespace SunBeam.Domain.Models
     using System;
     using System.Collections.Generic;
 
-    public partial class ZoneOrArea: BaseEntity
+    public partial class ZoneOrAreas: BaseEntity
     {
         public int Id { get; set; }
         public string Code { get; set; }

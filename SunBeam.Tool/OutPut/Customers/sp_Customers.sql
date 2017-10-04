@@ -3,7 +3,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE  proc [dbo].[sp_Customers]
+alter  proc [dbo].[sp_Customers]
 (
 @Id		int = null,
 @Code		nvarchar(20) = null,
@@ -36,7 +36,6 @@ if(@pOptions=1)
 begin
 INSERT INTO Customers
 (
-Id,
 Code,
 Name,
 CountryId,
@@ -61,7 +60,6 @@ LastUpdateFrom
 )
 VALUES
 (	
-@Id,
 @Code,
 @Name,
 @CountryId,
@@ -86,11 +84,11 @@ VALUES
 )
 IF @@ROWCOUNT = 0
 Begin
-SET @Msg='Warning: No rows were Inserted';	
+SET @Msg='Fail~Warning: No rows were Inserted';
 End
 Else
 Begin
-SET @Msg='Data Saved Successfully';	
+SET @Msg='Success~Data Saved Successfully';
 End					
 end
 --End of Save Customers
@@ -132,22 +130,44 @@ WHERE	Id	=	@Id;
 
 IF @@ROWCOUNT = 0
 Begin
-SET @Msg='Warning: No rows were Updated';	
+SET @Msg = 'Fail~Warning: No rows were Updated';
 End
 Else
 Begin
-SET @Msg='Data Updated Successfully';
+SET @Msg = 'Success~Data Updated Successfully';
 End
 End
 --End of Update Customers 
 
 
 
---Delete Customers
+--IsDelete Customers
 
 
 
 if(@pOptions=3)
+begin
+UPDATE	Customers 
+SET
+IsArchive	=	@IsArchive ,
+LastUpdateBy	=	@LastUpdateBy ,
+LastUpdateAt	=	@LastUpdateAt ,
+LastUpdateFrom	=	@LastUpdateFrom 
+WHERE	Id	=	@Id;
+SET @Msg='Data Deleted Successfully';
+end
+
+
+
+--End of IsDelete Customers 
+
+
+
+--IsDelete Customers
+
+
+
+if(@pOptions=4)
 begin
 Delete from Customers Where Id=@Id;
 SET @Msg='Data Deleted Successfully';
@@ -163,9 +183,9 @@ end
 
 
 
-if(@pOptions=4)
+if(@pOptions=5)
 begin	        
-select * from Customers;
+select * from Customers where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -177,9 +197,9 @@ end
 
 
 --Select Customers By Id 
-if(@pOptions=5)
+if(@pOptions=6)
 begin
-select * from Customers Where Id=@Id;
+select * from Customers Where Id=@Id and IsArchive=0;
 
 
 
@@ -187,3 +207,20 @@ if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
 --End of Select Customers By Id 
+
+
+
+--Select Id,Name Customers 
+
+
+
+if(@pOptions=7)
+begin	        
+select Id,Name  from Customers Where IsActive=1 and IsArchive=0;;
+if(@@ROWCOUNT=0)
+SET @Msg='Data Not Found';
+end
+
+
+
+--End Select Id,Name Customers 

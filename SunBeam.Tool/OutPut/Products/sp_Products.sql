@@ -98,11 +98,11 @@ VALUES
 )
 IF @@ROWCOUNT = 0
 Begin
-SET @Msg='Warning: No rows were Inserted';	
+SET @Msg='Fail~Warning: No rows were Inserted';
 End
 Else
 Begin
-SET @Msg='Data Saved Successfully';	
+SET @Msg='Success~Data Saved Successfully';
 End					
 end
 --End of Save Products
@@ -148,22 +148,44 @@ WHERE	Id	=	@Id;
 
 IF @@ROWCOUNT = 0
 Begin
-SET @Msg='Warning: No rows were Updated';	
+SET @Msg = 'Fail~Warning: No rows were Updated';
 End
 Else
 Begin
-SET @Msg='Data Updated Successfully';
+SET @Msg = 'Success~Data Updated Successfully';
 End
 End
 --End of Update Products 
 
 
 
---Delete Products
+--IsDelete Products
 
 
 
 if(@pOptions=3)
+begin
+UPDATE	Products 
+SET
+IsArchive	=	@IsArchive ,
+LastUpdateBy	=	@LastUpdateBy ,
+LastUpdateAt	=	@LastUpdateAt ,
+LastUpdateFrom	=	@LastUpdateFrom 
+WHERE	Id	=	@Id;
+SET @Msg='Data Deleted Successfully';
+end
+
+
+
+--End of IsDelete Products 
+
+
+
+--IsDelete Products
+
+
+
+if(@pOptions=4)
 begin
 Delete from Products Where Id=@Id;
 SET @Msg='Data Deleted Successfully';
@@ -179,9 +201,9 @@ end
 
 
 
-if(@pOptions=4)
+if(@pOptions=5)
 begin	        
-select * from Products;
+select * from Products where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -193,9 +215,9 @@ end
 
 
 --Select Products By Id 
-if(@pOptions=5)
+if(@pOptions=6)
 begin
-select * from Products Where Id=@Id;
+select * from Products Where Id=@Id and IsArchive=0;
 
 
 
@@ -203,3 +225,20 @@ if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
 --End of Select Products By Id 
+
+
+
+--Select Id,Name Products 
+
+
+
+if(@pOptions=7)
+begin	        
+select Id,Name  from Products Where IsActive=1 and IsArchive=0;;
+if(@@ROWCOUNT=0)
+SET @Msg='Data Not Found';
+end
+
+
+
+--End Select Id,Name Products 

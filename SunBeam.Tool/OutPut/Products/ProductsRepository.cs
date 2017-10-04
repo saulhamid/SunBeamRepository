@@ -138,14 +138,42 @@ cmd.Parameters.Add("@Msg", SqlDbType.NChar, 500);
 
 
 cmd.Parameters["@Msg"].Direction = ParameterDirection.Output;
+cmd.Parameters.AddWithValue("@pOptions", 4);
+
+
+var result = await ExecuteNonQueryProc(cmd);
+return result;
+}
+catch (Exception ex)
+{
+Logger.Error(ex.Message);
+throw ex;
+}
+}
+
+/// <summary>
+/// Delete Products
+/// </summary>
+/// <param name="Id"></param>
+/// <returns>Message</returns>
+public async Task<string> IsDelete(int Id,Products entity)
+{
+try
+{
+var cmd = new SqlCommand("sp_Products");
+cmd.Parameters.AddWithValue("@Id", Id);
+cmd.Parameters.AddWithValue("@IsArchive ", "true");
+cmd.Parameters.AddWithValue("@LastUpdateBy ", entity.LastUpdateBy);
+cmd.Parameters.AddWithValue("@LastUpdateAt ", entity.LastUpdateAt);
+cmd.Parameters.AddWithValue("@LastUpdateFrom ", entity.LastUpdateFrom);
+cmd.Parameters.Add("@Msg", SqlDbType.NChar, 500);
+
+
+cmd.Parameters["@Msg"].Direction = ParameterDirection.Output;
 cmd.Parameters.AddWithValue("@pOptions", 3);
 
 
 var result = await ExecuteNonQueryProc(cmd);
-if (Convert.ToString(result).Trim().Contains("Data Deleted Successfully"))
-{
-new LiveLogHistoryRepository(logger).Insert(Id.ToString() + " has been Deleted.", 1, 3);
-}
 return result;
 }
 catch (Exception ex)
@@ -164,7 +192,7 @@ public async Task<IEnumerable<Products>> GetAll()
 try
 {
 var cmd = new SqlCommand("sp_Products");
-cmd.Parameters.AddWithValue("@pOptions", 4);
+cmd.Parameters.AddWithValue("@pOptions", 5);
 var result = await GetDataReaderProc(cmd);
 return result;
 }
@@ -180,14 +208,14 @@ throw ex;
 /// </summary>
 /// <param name="Id"></param>
 /// <returns>Products Object</returns>
-public async Task<Products> GetProductsById(int Id)
+public async Task<Products> GetById(int Id)
 {
 try
 {
 var cmd = new SqlCommand("sp_Products");
 cmd.Parameters.AddWithValue("@Id", Id);
-cmd.Parameters.AddWithValue("@pOptions", 5);
-var result = await GetDataReaderProc(cmd);
+cmd.Parameters.AddWithValue("@pOptions", 6);
+var result = await GetByDataReaderProc(cmd);
 return result;
 }
 catch (Exception ex)
@@ -202,7 +230,7 @@ throw ex;
 /// </summary>
 /// <param name="sqldatareader"></param>
 /// <returns>Products Object</returns>
-public Products Mapping(SqlDataReader sqldatareader)
+public Products Mapping(SqlDataReader reader)
 {
 try
 {
@@ -233,6 +261,26 @@ oProducts.LastUpdateBy = Helper.ColumnExists(reader, "LastUpdateBy") ? reader["L
 oProducts.LastUpdateAt = Helper.ColumnExists(reader, "LastUpdateAt") ? reader["LastUpdateAt"].ToString() : "";
 oProducts.LastUpdateFrom = Helper.ColumnExists(reader, "LastUpdateFrom") ? reader["LastUpdateFrom"].ToString() : "";
 return oProducts;
+}
+catch (Exception ex)
+{
+Logger.Error(ex.Message);
+throw ex;
+}
+}
+
+/// <summary>
+/// Get Id, Name Products
+/// </summary>
+/// <returns>List ofProducts</returns>
+public async Task<IEnumerable<Products>> Dropdown()
+{
+try
+{
+var cmd = new SqlCommand("sp_Products");
+cmd.Parameters.AddWithValue("@pOptions", 7);
+var result = await GetDataReaderProc(cmd);
+return result;
 }
 catch (Exception ex)
 {

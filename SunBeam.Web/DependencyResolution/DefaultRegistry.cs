@@ -15,15 +15,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SunBeam.Web.DependencyResolution {
+namespace SunBeam.Web.DependencyResolution
+{
     using Common.Log;
-    using Data.Infrastructure;
-    using Microsoft.Owin.Logging;
-    using Service.Implementations;
     using Service.Interfaces;
     using StructureMap;
-    using StructureMap.Configuration.DSL;
-    using StructureMap.Graph;
 
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
@@ -38,7 +34,22 @@ namespace SunBeam.Web.DependencyResolution {
             //For(typeof(IDBGeneric<>)).Use(typeof(DBGeneric<>));
             For(typeof(Common.Log.ILogger)).Use(typeof(Logger));
             For<ICustomersBL>().Use<CustomersBL>();
-           
+            For<IEnumCountryBL>().Use<EnumCountryBL>();
+            For<IEmployeeBL>().Use<EmployeeBL>();
+            For<IZoneOrAreasBL>().Use<ZoneOrAreasBL>();
+            For<IMarketsBL>().Use<MarketsBL>(); 
+            For<IProductBrandsBL>().Use<ProductBrandsBL>(); 
+            For<IProductSizeBL>().Use<ProductSizeBL>(); 
+            For<IProductTypesBL>().Use<ProductTypesBL>();
+            For<IProductBrandsBL>().Use<ProductBrandsBL>();
+            For<IUOMBL>().Use<UOMBL>();
+            For<IProductsBL>().Use<ProductsBL>();
+            For<ISuppliersBL>().Use<SuppliersBL>();
+            For<IProductCategorysBL>().Use<ProductCategorysBL>();
+            For<IProductColorBL>().Use<ProductColorBL>();
+            For<IPurchasesBL>().Use<PurchasesBL>();
+            For<IPurcheaseDetailsBL>().Use<PurcheaseDetailsBL>();
+
             //  For<IDBGeneric<typeof>> ().Use< Data.Infrastructure.DBGeneric < typeof>> ();
         }
 

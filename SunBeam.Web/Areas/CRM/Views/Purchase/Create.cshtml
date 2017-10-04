@@ -1,0 +1,207 @@
+﻿@model SunBeam.Domain.Models.Purchases
+<!-- Modal -->
+@using (Html.BeginForm("Create", "Purchase", FormMethod.Post, new { @Id = "frmPurchase", @Name = "frmPurchase" }))
+{
+	<!-- MAIN CONTENT -->
+<div id="content">
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Create </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body ">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="InvoiecNo">InvoiecNo</label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.InvoiecNo, new { @Class = "form-control required", @placeholder = "InvoiecNo" })
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Date</label>
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(m => m.Date, new { @Class = "form-control required datepicker", @placeholder = "Date" })
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="Code">Supplier</label>
+                                    <div class="form-group">
+                                        @Html.SimpleDropDownFor(m => m.SupplierId, "/Config/Supplier/DropDownSuppliers", new { @Class = "form-control Dropdown", @placeholder = "Remarks", @rows = "5" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="Employee">Employee</label>
+                                    <div class="form-group">
+                                        @Html.SimpleDropDownFor(m => m.EmployeeId, "/Config/Employee/DropDownEmployee", new { @Class = "form-control Dropdown", @placeholder = "Remarks", @rows = "5" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="Remarks"> Remarks</label>
+                                    <div class="form-group">
+                                        @Html.TextAreaFor(m => m.Remarks, new { @Class = "form-control", @placeholder = "Remarks" })
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Hide / Show Columns </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Select Product</label>
+                                        @Html.SimpleDropDownFor(m => m.PurcheaseDetails.FirstOrDefault().ProductName, "/Config/Product/DropDownProducts", new { @Class = "Dropdown select2" })
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Unite Price</label>
+                                            @Html.TextBoxFor(m => m.PurcheaseDetails.FirstOrDefault().UnitePrice, new { @Class = "form-control unitprice", @Type = "number", @placeholder = "Unite Price" })
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="Code">Quantity</label>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.PurcheaseDetails.FirstOrDefault().Quantity, new { @Class = "form-control quan", @Type="number", @placeholder = "Quantity" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="Employee">Employee</label>
+                                    <div class="form-group">
+                                        <a class="btn btn-primary" id="addrow">Add Product</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Product Detail</th>
+                                        <th>Unit Price</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3">SubTotal</td>
+                                        <td colspan="3">@Html.TextBox("Subtotal")</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">Discount</td>
+                                        <td colspan="3">@Html.TextBoxFor(m=>m.)</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+</div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- WIDGET END -->
+        </div>
+        <!-- end row -->
+        <!-- end row -->
+    </section>
+    <!-- end widget grid -->
+    <span class="clearfix"></span>
+    <p class="alert alert-info">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+            Cancel
+        </button>
+        <button type="button" class="btn btn-primary" onclick="pageSubmit('frmSupplier');">
+            Submit
+        </button>
+    </p>
+</div>
+<!-- END MAIN CONTENT -->
+   
+}
+@section pagespecific {
+    <script type="text/javascript">
+
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+    $(document).ready(function () {
+        $('#addrow').click(function () {
+            var proid = $('.select2  :selected').val();
+            var unitprice = $('.unitprice').val();
+            var quan = $('.quan').val();
+            alert(quan);
+            var data = new Array();
+            var url = '@Url.Action("/PurcheaseDetail")?proid=' + proid + '&unitprice=' + unitprice + '&quantity=' + quan;
+            debugger;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                //beforeSend: function () { $(".loading").show(); },
+                //complete: function () { $(".loading").fadeOut(200).hide("slow") },
+                success: function (response) {
+                    debugger;
+                    $('tbody').append(response);
+                },
+                error: function () {
+                    ShowAlert("Fail", "Operation Fail");
+
+                }
+            });
+
+        })
+
+
+    })
+
+    </script>
+}

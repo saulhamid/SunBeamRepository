@@ -1,10 +1,10 @@
+using SunBeam.Common.Log;
+using SunBeam.Data.Repositories.Implementations;
+using SunBeam.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SunBeam.Common.Log;
-using SunBeam.Service.Admin.Interfaces;
-using SunBeam.Data.Repositories.Implementations;
-using SunBeam.Domain;
+
 
 namespace SunBeam.Service.Interfaces
 {
@@ -13,11 +13,11 @@ namespace SunBeam.Service.Interfaces
 public class ProductsBL : IProductsBL
 {
 
-protected ILogger Logger { get; set; }
+protected ILogger logger { get; set; }
 
 public ProductsBL(ILogger logger)
 {
-Logger = logger;
+this.logger = logger;
 }
 
 /// <summary>
@@ -25,7 +25,7 @@ Logger = logger;
 /// </summary>
 /// <param name="entity"></param>
 /// <returns>Message</returns>
-public async Task<string> Insert(Products entity)
+public async Task<string> InsertProducts(Products entity)
 {
 try
 {
@@ -34,7 +34,7 @@ return result;
 }
 catch (Exception ex)
 {
-Logger.Error(ex.Message);
+logger.Error(ex.Message);
 throw ex;
 }
 }
@@ -44,16 +44,16 @@ throw ex;
 /// </summary>
 /// <param name="entity"></param>
 /// <returns>Message</returns>
-public async Task<string> Update(Products entity)
+public async Task<string> UpdateProducts(Products entity)
 {
 try
 {
-var result = await new HoliDayRepository(logger).Update(entity);
+var result = await new ProductsRepository(logger).Update(entity);
 return result;
 }
 catch (Exception ex)
 {
-Logger.Error(ex.Message);
+logger.Error(ex.Message);
 throw ex;
 }
 }
@@ -63,25 +63,49 @@ throw ex;
 /// </summary>
 /// <param name="Id"></param>
 /// <returns>Message</returns>
-public async Task<string> Delete(int Id)
+public async Task<string> IsDeleteProducts(string[] IdList, Products entity)
 {
+string result = string.Empty;
 try
 {
-var result = await new ProductsRepository(logger).Delete(Id);
-return result;
+ for (int i = 0; i < IdList.Length - 1; i++)
+{
+result = await new ProductsRepository(logger).IsDelete(Convert.ToInt32(IdList[i]), entity);
+}
 }
 catch (Exception ex)
 {
-Logger.Error(ex.Message);
+logger.Error(ex.Message);
 throw ex;
 }
+return result;
+}
+
+/// <summary>
+/// Delete Products
+/// </summary>
+/// <param name="Id"></param>
+/// <returns>Message</returns>
+public async Task<string> DeleteProducts(int Id)
+{
+string result = string.Empty;
+try
+{
+result = await new ProductsRepository(logger).Delete(Id);
+}
+catch (Exception ex)
+{
+logger.Error(ex.Message);
+throw ex;
+}
+return result;
 }
 
 /// <summary>
 /// Get All Products
 /// </summary>
 /// <returns>List ofProducts</returns>
-public async Task<IEnumerable<Products>> GetAll()
+public async Task<IEnumerable<Products>> GetAllProducts()
 {
 try
 {
@@ -90,7 +114,7 @@ return result;
 }
 catch (Exception ex)
 {
-Logger.Error(ex.Message);
+logger.Error(ex.Message);
 throw ex;
 }
 }
@@ -104,17 +128,34 @@ public async Task<Products> GetProductsById(int Id)
 {
 try
 {
-var result = await new ProductsRepository(logger).GetProductsById(Id);
+var result = await new ProductsRepository(logger).GetById(Id);
 return result;
 }
 catch (Exception ex)
 {
-Logger.Error(ex.Message);
+logger.Error(ex.Message);
 throw ex;
 }
 }
 
 
+/// <summary>
+/// Get Id , Name Products
+/// </summary>
+/// <returns>List ofProducts</returns>
+public async Task<IEnumerable<Products>> DropDownProducts()
+{
+try
+{
+var result = await new ProductsRepository(logger).Dropdown();
+return result;
+}
+catch (Exception ex)
+{
+logger.Error(ex.Message);
+throw ex;
+}
+}
 }
 
 

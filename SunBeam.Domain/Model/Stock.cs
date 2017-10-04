@@ -13,7 +13,7 @@ namespace SunBeam.Domain.Models
     using System;
     using System.Collections.Generic;
 
-    public partial class Stock: BaseEntity
+    public partial class Stocks: BaseEntity
     {
         public int Id { get; set; }
         public Nullable<int> ProductId { get; set; }
@@ -24,5 +24,6 @@ namespace SunBeam.Domain.Models
         public Nullable<decimal> FinalUnitPrice { get; set; }
         public Nullable<decimal> OpeningQuantity { get; set; }
         public Nullable<decimal> Quantity { get; set; }
+        public bool StockStutes { get; set; }
     }
 }

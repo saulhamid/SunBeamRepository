@@ -13,7 +13,7 @@ namespace SunBeam.Domain.Models
     using System;
     using System.Collections.Generic;
 
-    public partial class Supplier: BaseEntity
+    public partial class Suppliers: BaseEntity
     {
         public int Id { get; set; }
         public int BranchId { get; set; }

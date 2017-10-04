@@ -59,11 +59,11 @@ VALUES
 )
 IF @@ROWCOUNT = 0
 Begin
-SET @Msg='Warning: No rows were Inserted';	
+SET @Msg='Fail~Warning: No rows were Inserted';
 End
 Else
 Begin
-SET @Msg='Data Saved Successfully';	
+SET @Msg='Success~Data Saved Successfully';
 End					
 end
 --End of Save ProductCategorys
@@ -96,22 +96,44 @@ WHERE	Id	=	@Id;
 
 IF @@ROWCOUNT = 0
 Begin
-SET @Msg='Warning: No rows were Updated';	
+SET @Msg = 'Fail~Warning: No rows were Updated';
 End
 Else
 Begin
-SET @Msg='Data Updated Successfully';
+SET @Msg = 'Success~Data Updated Successfully';
 End
 End
 --End of Update ProductCategorys 
 
 
 
---Delete ProductCategorys
+--IsDelete ProductCategorys
 
 
 
 if(@pOptions=3)
+begin
+UPDATE	ProductCategorys 
+SET
+IsArchive	=	@IsArchive ,
+LastUpdateBy	=	@LastUpdateBy ,
+LastUpdateAt	=	@LastUpdateAt ,
+LastUpdateFrom	=	@LastUpdateFrom 
+WHERE	Id	=	@Id;
+SET @Msg='Data Deleted Successfully';
+end
+
+
+
+--End of IsDelete ProductCategorys 
+
+
+
+--IsDelete ProductCategorys
+
+
+
+if(@pOptions=4)
 begin
 Delete from ProductCategorys Where Id=@Id;
 SET @Msg='Data Deleted Successfully';
@@ -127,9 +149,9 @@ end
 
 
 
-if(@pOptions=4)
+if(@pOptions=5)
 begin	        
-select * from ProductCategorys;
+select * from ProductCategorys where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -141,9 +163,9 @@ end
 
 
 --Select ProductCategorys By Id 
-if(@pOptions=5)
+if(@pOptions=6)
 begin
-select * from ProductCategorys Where Id=@Id;
+select * from ProductCategorys Where Id=@Id and IsArchive=0;
 
 
 
@@ -151,3 +173,20 @@ if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
 --End of Select ProductCategorys By Id 
+
+
+
+--Select Id,Name ProductCategorys 
+
+
+
+if(@pOptions=7)
+begin	        
+select Id,Name  from ProductCategorys Where IsActive=1 and IsArchive=0;;
+if(@@ROWCOUNT=0)
+SET @Msg='Data Not Found';
+end
+
+
+
+--End Select Id,Name ProductCategorys 
