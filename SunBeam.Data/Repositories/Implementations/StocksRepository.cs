@@ -233,7 +233,8 @@ oStocks.IsArchive = Helper.ColumnExists(reader, "IsArchive") ? ((reader["IsArchi
 oStocks.CreatedBy = Helper.ColumnExists(reader, "CreatedBy") ? reader["CreatedBy"].ToString() : "";
 oStocks.CreatedAt = Helper.ColumnExists(reader, "CreatedAt") ? reader["CreatedAt"].ToString() : "";
 oStocks.CreatedFrom = Helper.ColumnExists(reader, "CreatedFrom") ? reader["CreatedFrom"].ToString() : "";
-return oStocks;
+oStocks.ProductName = Helper.ColumnExists(reader, "ProductName") ? reader["ProductName"].ToString() : "";
+                return oStocks;
 }
 catch (Exception ex)
 {

@@ -265,6 +265,7 @@ namespace SunBeam.Data.Infrastructure
                     case "ProductCategory": return new ProductCategorysRepository(logger).Mapping(sqldatareader);
                     case "Purchases": return new PurchasesRepository(logger).Mapping(sqldatareader);
                     case "PurcheaseDetails": return new PurcheaseDetailsRepository(logger).Mapping(sqldatareader);
+                    case "Stocks": return new StocksRepository(logger).Mapping(sqldatareader);
 
                     default: return null;
                 }

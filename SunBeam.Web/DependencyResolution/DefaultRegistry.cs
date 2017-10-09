@@ -49,6 +49,7 @@ namespace SunBeam.Web.DependencyResolution
             For<IProductColorBL>().Use<ProductColorBL>();
             For<IPurchasesBL>().Use<PurchasesBL>();
             For<IPurcheaseDetailsBL>().Use<PurcheaseDetailsBL>();
+            For<IStocksBL>().Use<StocksBL>();
 
             //  For<IDBGeneric<typeof>> ().Use< Data.Infrastructure.DBGeneric < typeof>> ();
         }

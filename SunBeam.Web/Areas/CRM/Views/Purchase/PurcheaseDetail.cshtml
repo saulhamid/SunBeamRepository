@@ -1,20 +1,23 @@
 ﻿@model SunBeam.Domain.Models.PurcheaseDetails
-    <tr>
+<tr class="dpro">
+    @using (Html.BeginCollectionItem("PurcheaseDetails"))
+    {
         @Html.HiddenFor(m => m.ProductName)
+        @Html.HiddenFor(m => m.PurchaseId)
+        @Html.HiddenFor(m => m.ProductId, new { @class = "pid" })
         @Html.HiddenFor(m => m.ProductCode)
-        @Html.HiddenFor(m => m.Quantity)
-        @Html.HiddenFor(m => m.UnitePrice)
-        <td><a class="btn btn-info btn-xs">Edit</a><a class="btn btn-warning btn-xs">Del</a> </a> </td>
+        @Html.HiddenFor(m => m.Quantity, new { @class = "dquans" })
+        @Html.HiddenFor(m => m.UnitePrice, new { @class = "dunitp" })
+        <td><a class="btn btn-info btn-xs" onclick="Edit(this)">Edit</a><a class="btn btn-warning btn-xs" onclick="Removerow(this)">Del</a> </td>
         <td>@Html.DisplayFor(m => m.ProductName)</td>
-        @Html.DisplayFor(m => m.ProductId)
-        <td>@Html.DisplayFor(m => m.UnitePrice,new { @class="unitp"})</td>
-        <td>@Html.DisplayFor(m => m.Quantity, new { @class = "quans" })</td>
-        <td class="amount">@Html.DisplayFor(m => m.TotalPrice)</td>
-    </tr>
-<script>
-    //$(function () {
-    //    var unitp =parseFloat($(".unitp").val());
-    //    var quans = parseFloat($(".quans").val());
-    //    $('.amount').val(unitp*quans);
-    //})
-</script>
+                <td>@Html.DisplayFor(m => m.UnitePrice)</td>
+                <td>@Html.DisplayFor(m => m.Quantity)</td>
+                <td class="amount">@Html.DisplayFor(m => m.TotalPrice)</td>
+    }
+</tr>
+
+@section pagespecific {
+    <script type="text/javascript">
+   
+    </script>
+    }

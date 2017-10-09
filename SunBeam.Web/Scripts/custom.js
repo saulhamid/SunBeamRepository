@@ -188,7 +188,7 @@ function pageSubmit(sender) {
             a++;
         }
     }
-    if (a == 0) {
+    if (a === 0) {
         var $form = $('#' + sender).closest('form')
         $.ajax({
             url: $form.attr('action'),
@@ -205,7 +205,8 @@ function pageSubmit(sender) {
                 $('#' + sender)[0].reset();
                 location.reload();
             },
-            error: function () {
+            error: function (a, b, c, d) {
+                debugger;
                 ShowAlert("Fail", "Operation Fail");
 
             }
@@ -922,11 +923,11 @@ function ShowAlert(a,b) {
             timeout: 4000
         });
     }
-    else {
+    else if (a === 'Fail') {
         $.smallBox({
             title: a,
             content: b,
-            color: "#296191",
+            color: "#953b39",
             iconSmall: "fa fa-bell swing animated",
             timeout: 4000
         });
@@ -947,6 +948,15 @@ function SelectAllForDelete() {
     $(".paginate_enabled_next,.paginate_enabled_previous,.paginate_disabled_next,.paginate_disabled_previous").on("click", function () {
         $(this).parents().find("table th .chkAll").attr("checked", false);
     });
+}
+
+function getnum(val) {
+    if (!$.isNumeric(val) || typeof e === 'undefined ') {
+        return 0;
+    }
+    else {
+        return parseFloat(val);
+    }
 }
 
 

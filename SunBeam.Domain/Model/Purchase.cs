@@ -22,6 +22,9 @@ namespace SunBeam.Domain.Models
         public Nullable<int> EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public string Date { get; set; }
+        public decimal Discount { get; set; }
+        public string CouponName { get; set; }
+        public decimal CouponAmunt { get; set; }
         public IEnumerable<PurcheaseDetails> PurcheaseDetails { get; set; }
 
     }

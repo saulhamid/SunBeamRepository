@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Linq;
 #endregion library
 
 namespace SunBeam.Web.Areas.CRM.Controllers
@@ -128,6 +127,7 @@ namespace SunBeam.Web.Areas.CRM.Controllers
             }
             catch (Exception ex)
             {
+                result = "Fail~" + ex.Message.ToString();
                 throw;
             }
             return Json(result, JsonRequestBehavior.AllowGet);

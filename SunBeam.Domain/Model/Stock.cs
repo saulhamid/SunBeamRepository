@@ -17,13 +17,14 @@ namespace SunBeam.Domain.Models
     {
         public int Id { get; set; }
         public Nullable<int> ProductId { get; set; }
+        public string ProductName { get; set; }
         public Nullable<decimal> TotalPaid { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
         public Nullable<decimal> GrandTotal { get; set; }
         public string Date { get; set; }
         public Nullable<decimal> FinalUnitPrice { get; set; }
         public Nullable<decimal> OpeningQuantity { get; set; }
-        public Nullable<decimal> Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public bool StockStutes { get; set; }
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Implementations\ProductTypesBL.cs" />
     <Compile Include="Implementations\PurchasesBL.cs" />
     <Compile Include="Implementations\PurcheaseDetailsBL.cs" />
+    <Compile Include="Implementations\StocksBL.cs" />
     <Compile Include="Implementations\SuppliersBL.cs" />
     <Compile Include="Implementations\UOMBL.cs" />
     <Compile Include="Implementations\ZoneOrAreasBL.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Interfaces\IProductTypesBL.cs" />
     <Compile Include="Interfaces\IPurchasesBL.cs" />
     <Compile Include="Interfaces\IPurcheaseDetailsBL.cs" />
+    <Compile Include="Interfaces\IStocksBL.cs" />
     <Compile Include="Interfaces\ISuppliersBL.cs" />
     <Compile Include="Interfaces\IUOMBL.cs" />
     <Compile Include="Interfaces\IZoneOrAreasBL.cs" />

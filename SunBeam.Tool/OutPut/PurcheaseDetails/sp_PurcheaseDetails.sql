@@ -164,7 +164,9 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from PurcheaseDetails where IsArchive=0;
+select * from PurcheaseDetails	pd
+left outer join Products p on p.Id=pd.ProductId
+ where pd.IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Fail~Data Not Found';
 end

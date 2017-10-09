@@ -278,6 +278,7 @@
     <Compile Include="Areas\Config\Controllers\UOMController.cs" />
     <Compile Include="Areas\Config\Controllers\ZoneOrAreasController.cs" />
     <Compile Include="Areas\CRM\Controllers\PurchasesController.cs" />
+    <Compile Include="Areas\CRM\Controllers\StocksController.cs" />
     <Compile Include="Areas\CRM\CRMAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -678,6 +679,8 @@
     <Content Include="Areas\CRM\Views\Purchase\Index.cshtml" />
     <Content Include="Areas\CRM\Views\Purchase\Create.cshtml" />
     <Content Include="Areas\CRM\Views\Purchase\PurcheaseDetail.cshtml" />
+    <Content Include="Areas\CRM\Views\Purchase\Edit.cshtml" />
+    <Content Include="Areas\CRM\Views\Stock\Index.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\app.config.seed.js" />
     <Content Include="Scripts\app.config.seed.min.js" />

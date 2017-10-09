@@ -236,7 +236,9 @@ oPurchases.CreatedFrom = Helper.ColumnExists(reader, "CreatedFrom") ? reader["Cr
 oPurchases.LastUpdateBy = Helper.ColumnExists(reader, "LastUpdateBy") ? reader["LastUpdateBy"].ToString() : "";
 oPurchases.LastUpdateAt = Helper.ColumnExists(reader, "LastUpdateAt") ? reader["LastUpdateAt"].ToString() : "";
 oPurchases.LastUpdateFrom = Helper.ColumnExists(reader, "LastUpdateFrom") ? reader["LastUpdateFrom"].ToString() : "";
-return oPurchases;
+oPurchases.SupplierName = Helper.ColumnExists(reader, "SupplierName") ? reader["SupplierName"].ToString() : "";
+oPurchases.EmployeeName = Helper.ColumnExists(reader, "EmployeeName") ? reader["EmployeeName"].ToString() : "";
+                return oPurchases;
 }
 catch (Exception ex)
 {
