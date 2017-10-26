@@ -26,5 +26,11 @@ namespace SunBeam.Domain.Models
         public Nullable<decimal> OpeningQuantity { get; set; }
         public decimal Quantity { get; set; }
         public bool StockStutes { get; set; }
+
+        public Nullable<int> SalesId { get; set; }
+        public Nullable<int> SalesReturnId { get; set; }
+        public Nullable<int> PurcheaseId { get; set; }
+        public Nullable<int> PurcheaseReturnId { get; set; }
+        public Nullable<int> StockId { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace SunBeam.Service.Interfaces
         /// <returns>Message</returns>
         public async Task<string> InsertPurchases(Purchases entity)
         {
-            var result = string.Empty;
+                var result = string.Empty;
                 using (TransactionScope txScope = new TransactionScope())
                 {
                 try
@@ -77,7 +77,6 @@ namespace SunBeam.Service.Interfaces
                 finally {
                     txScope.Complete();
                 }
-              
             }
                 return result;
         }

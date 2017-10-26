@@ -266,7 +266,11 @@ namespace SunBeam.Data.Infrastructure
                     case "Purchases": return new PurchasesRepository(logger).Mapping(sqldatareader);
                     case "PurcheaseDetails": return new PurcheaseDetailsRepository(logger).Mapping(sqldatareader);
                     case "Stocks": return new StocksRepository(logger).Mapping(sqldatareader);
-
+                    case "PurcheaseReturns": return new PurcheaseReturnsRepository(logger).Mapping(sqldatareader);
+                    case "PurcheaseReturnDetails": return new PurcheaseReturnDetailsRepository(logger).Mapping(sqldatareader);
+                    case "Sales": return new SalesRepository(logger).Mapping(sqldatareader);
+                    case "SalesDetails": return new SalesDetailsRepository(logger).Mapping(sqldatareader); 
+                    case "StockDetails": return new StockDetailsRepository(logger).Mapping(sqldatareader); 
                     default: return null;
                 }
             }

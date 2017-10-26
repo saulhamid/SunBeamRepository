@@ -172,6 +172,18 @@ namespace SunBeam.Web.Areas.Config.Controllers
             }
             return Json(new SelectList((result), "Id", "Name"), JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult DropDownMarketsForZoneArea(int Id)
+        {
+            dynamic result;
+            try
+            {
+                result = repo.GetAllMarkets().Result.Where(c => c.ZoneOrAreaId.Equals(Id)).Select(c=> new { c.Id,c.Name});
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(new SelectList((result), "Id", "Name"), JsonRequestBehavior.AllowGet);
+        }
     }
 }

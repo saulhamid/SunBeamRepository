@@ -80,10 +80,10 @@
     <Compile Include="Model\ProductTypes.cs" />
     <Compile Include="Model\Purchase.cs" />
     <Compile Include="Model\PurcheaseDetail.cs" />
-    <Compile Include="Model\PurcheaseReturn.cs" />
-    <Compile Include="Model\PurcheaseReturnDetail.cs" />
-    <Compile Include="Model\Sale.cs" />
-    <Compile Include="Model\SalesDetail.cs" />
+    <Compile Include="Model\PurcheaseReturns.cs" />
+    <Compile Include="Model\PurcheaseReturnDetails.cs" />
+    <Compile Include="Model\Sales.cs" />
+    <Compile Include="Model\SalesDetails.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\StockDetail.cs" />
     <Compile Include="Model\Supplier.cs" />

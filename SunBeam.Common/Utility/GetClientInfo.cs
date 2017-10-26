@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace SunBeam.Common.Utility
 {
-  public class  GetClientInfo
+  public static class  GetClientInfo
     {
      
 
-        public string ClientPCIPAddress { get; set; }
-        public string ClientBrowserInfo { get; set; }
-        public string ClientMacAddress { get; set; }
-        public string ClientPCUserName { get; set; }
+        public static string ClientPCIPAddress { get; set; }
+        public static string ClientBrowserInfo { get; set; }
+        public static string ClientMacAddress { get; set; }
+        public static string ClientPCUserName { get; set; }
 
        
-        public  void ClientUserInfo()
+        public static void ClientUserInfo()
         {
            
 
@@ -38,7 +34,7 @@ namespace SunBeam.Common.Utility
             ClientPCUserName = ClientPCIPAddress + "~" + GetHostName(ClientPCIPAddress);
         }
 
-        public  string GetHostName(string ipAddress)
+        public static string GetHostName(string ipAddress)
         {
             try
             {
@@ -55,5 +51,6 @@ namespace SunBeam.Common.Utility
 
             return null;
         }
-    }
+       
+        }
 }

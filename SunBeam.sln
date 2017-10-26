@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunBeam.Web", "SunBeam.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunBeam.Tool", "SunBeam.Tool\SunBeam.Tool.csproj", "{7AA17DA6-CE85-4F46-92C0-DE56752E985E}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SunBeam.Database", "SunBeam.Database\SunBeam.Database.sqlproj", "{A53F093C-13E5-4A69-AF0E-2CB8BCB6A3D8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,12 +45,6 @@ Global
 		{7AA17DA6-CE85-4F46-92C0-DE56752E985E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AA17DA6-CE85-4F46-92C0-DE56752E985E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AA17DA6-CE85-4F46-92C0-DE56752E985E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A53F093C-13E5-4A69-AF0E-2CB8BCB6A3D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A53F093C-13E5-4A69-AF0E-2CB8BCB6A3D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A53F093C-13E5-4A69-AF0E-2CB8BCB6A3D8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{A53F093C-13E5-4A69-AF0E-2CB8BCB6A3D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A53F093C-13E5-4A69-AF0E-2CB8BCB6A3D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A53F093C-13E5-4A69-AF0E-2CB8BCB6A3D8}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

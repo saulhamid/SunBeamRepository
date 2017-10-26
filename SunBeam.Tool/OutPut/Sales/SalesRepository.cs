@@ -39,7 +39,6 @@ cmd.Parameters.AddWithValue("@ProductId", entity.ProductId);
 cmd.Parameters.AddWithValue("@CustomerId", entity.CustomerId);
 cmd.Parameters.AddWithValue("@ZoneOrAreaId", entity.ZoneOrAreaId);
 cmd.Parameters.AddWithValue("@EmployeeId", entity.EmployeeId);
-cmd.Parameters.AddWithValue("@DiscountRemarks", entity.DiscountRemarks);
 cmd.Parameters.AddWithValue("@Discount", entity.Discount);
 cmd.Parameters.AddWithValue("@TotalDiscount", entity.TotalDiscount);
 cmd.Parameters.AddWithValue("@TotalPaid", entity.TotalPaid);
@@ -89,7 +88,6 @@ cmd.Parameters.AddWithValue("@ProductId", entity.ProductId);
 cmd.Parameters.AddWithValue("@CustomerId", entity.CustomerId);
 cmd.Parameters.AddWithValue("@ZoneOrAreaId", entity.ZoneOrAreaId);
 cmd.Parameters.AddWithValue("@EmployeeId", entity.EmployeeId);
-cmd.Parameters.AddWithValue("@DiscountRemarks", entity.DiscountRemarks);
 cmd.Parameters.AddWithValue("@Discount", entity.Discount);
 cmd.Parameters.AddWithValue("@TotalDiscount", entity.TotalDiscount);
 cmd.Parameters.AddWithValue("@TotalPaid", entity.TotalPaid);
@@ -128,7 +126,7 @@ throw ex;
 /// </summary>
 /// <param name="Id"></param>
 /// <returns>Message</returns>
-public async Task<string> Delete(int Id,Sales entity)
+public async Task<string> Delete(int Id)
 {
 try
 {
@@ -241,7 +239,6 @@ oSales.ProductId = Helper.ColumnExists(reader, "ProductId") ? ((reader["ProductI
 oSales.CustomerId = Helper.ColumnExists(reader, "CustomerId") ? ((reader["CustomerId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["CustomerId"])) : 0 ;
 oSales.ZoneOrAreaId = Helper.ColumnExists(reader, "ZoneOrAreaId") ? ((reader["ZoneOrAreaId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["ZoneOrAreaId"])) : 0 ;
 oSales.EmployeeId = Helper.ColumnExists(reader, "EmployeeId") ? ((reader["EmployeeId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["EmployeeId"])) : 0 ;
-oSales.DiscountRemarks = Helper.ColumnExists(reader, "DiscountRemarks") ? reader["DiscountRemarks"].ToString() : "";
 oSales.Discount = Helper.ColumnExists(reader, "Discount") ? ((reader["Discount"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["Discount"])) : 0;
 oSales.TotalDiscount = Helper.ColumnExists(reader, "TotalDiscount") ? ((reader["TotalDiscount"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["TotalDiscount"])) : 0;
 oSales.TotalPaid = Helper.ColumnExists(reader, "TotalPaid") ? ((reader["TotalPaid"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["TotalPaid"])) : 0;

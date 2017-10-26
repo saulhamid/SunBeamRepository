@@ -130,7 +130,7 @@ throw ex;
 /// </summary>
 /// <param name="Id"></param>
 /// <returns>Message</returns>
-public async Task<string> Delete(int Id,SalesDetails entity)
+public async Task<string> Delete(int Id)
 {
 try
 {

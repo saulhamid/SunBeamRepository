@@ -207,7 +207,7 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from SalesDetails;
+select * from SalesDetails where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -221,7 +221,7 @@ end
 --Select SalesDetails By Id 
 if(@pOptions=6)
 begin
-select * from SalesDetails Where Id=@Id;
+select * from SalesDetails Where Id=@Id and IsArchive=0;
 
 
 
@@ -238,7 +238,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from SalesDetails;
+select Id,Name  from SalesDetails Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

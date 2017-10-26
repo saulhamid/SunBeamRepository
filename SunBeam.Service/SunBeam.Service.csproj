@@ -64,6 +64,8 @@
     <Compile Include="Implementations\CustomersBL.cs" />
     <Compile Include="Implementations\EmployeeBL.cs" />
     <Compile Include="Implementations\EnumCountryBL.cs" />
+    <Compile Include="Implementations\StockDetailsBL.cs" />
+    <Compile Include="Interfaces\IStockDetailsBL.cs" />
     <Compile Include="Implementations\MarketsBL.cs" />
     <Compile Include="Implementations\ProductBrandsBL.cs" />
     <Compile Include="Implementations\ProductCategorysBL.cs" />
@@ -73,6 +75,10 @@
     <Compile Include="Implementations\ProductTypesBL.cs" />
     <Compile Include="Implementations\PurchasesBL.cs" />
     <Compile Include="Implementations\PurcheaseDetailsBL.cs" />
+    <Compile Include="Implementations\PurcheaseReturnDetailsBL.cs" />
+    <Compile Include="Implementations\PurcheaseReturnsBL.cs" />
+    <Compile Include="Implementations\SalesBL.cs" />
+    <Compile Include="Implementations\SalesDetailsBL.cs" />
     <Compile Include="Implementations\StocksBL.cs" />
     <Compile Include="Implementations\SuppliersBL.cs" />
     <Compile Include="Implementations\UOMBL.cs" />
@@ -89,6 +95,10 @@
     <Compile Include="Interfaces\IProductTypesBL.cs" />
     <Compile Include="Interfaces\IPurchasesBL.cs" />
     <Compile Include="Interfaces\IPurcheaseDetailsBL.cs" />
+    <Compile Include="Interfaces\IPurcheaseReturnDetailsBL.cs" />
+    <Compile Include="Interfaces\IPurcheaseReturnsBL.cs" />
+    <Compile Include="Interfaces\ISalesBL.cs" />
+    <Compile Include="Interfaces\ISalesDetailsBL.cs" />
     <Compile Include="Interfaces\IStocksBL.cs" />
     <Compile Include="Interfaces\ISuppliersBL.cs" />
     <Compile Include="Interfaces\IUOMBL.cs" />

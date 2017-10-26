@@ -11,7 +11,6 @@ CREATE  proc [dbo].[sp_Sales]
 @CustomerId		int = null,
 @ZoneOrAreaId		int = null,
 @EmployeeId		int = null,
-@DiscountRemarks		nvarchar(200) = null,
 @Discount		decimal = null,
 @TotalDiscount		decimal = null,
 @TotalPaid		decimal = null,
@@ -46,7 +45,6 @@ ProductId,
 CustomerId,
 ZoneOrAreaId,
 EmployeeId,
-DiscountRemarks,
 Discount,
 TotalDiscount,
 TotalPaid,
@@ -75,7 +73,6 @@ VALUES
 @CustomerId,
 @ZoneOrAreaId,
 @EmployeeId,
-@DiscountRemarks,
 @Discount,
 @TotalDiscount,
 @TotalPaid,
@@ -120,7 +117,6 @@ ProductId	=	@ProductId ,
 CustomerId	=	@CustomerId ,
 ZoneOrAreaId	=	@ZoneOrAreaId ,
 EmployeeId	=	@EmployeeId ,
-DiscountRemarks	=	@DiscountRemarks ,
 Discount	=	@Discount ,
 TotalDiscount	=	@TotalDiscount ,
 TotalPaid	=	@TotalPaid ,
@@ -204,7 +200,7 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from Sales;
+select * from Sales where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -218,7 +214,7 @@ end
 --Select Sales By Id 
 if(@pOptions=6)
 begin
-select * from Sales Where Id=@Id;
+select * from Sales Where Id=@Id and IsArchive=0;
 
 
 
@@ -235,7 +231,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from Sales;
+select Id,Name  from Sales Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

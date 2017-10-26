@@ -14,10 +14,12 @@ namespace SunBeam.Web.Areas.CRM.Controllers
     {
         private readonly IPurchasesBL repo;
         private readonly IProductsBL prorepo;
-        public PurchaseController(IPurchasesBL _repo, IProductsBL _prorepo)
+        private readonly IPurcheaseDetailsBL prodrepo;
+        public PurchaseController(IPurchasesBL _repo, IProductsBL _prorepo, IPurcheaseDetailsBL _prodrepo)
         {
             this.repo = _repo;
             this.prorepo = _prorepo;
+            this.prodrepo = _prodrepo;
         }
 
         public ActionResult Index()
@@ -210,6 +212,37 @@ namespace SunBeam.Web.Areas.CRM.Controllers
             }
             return Json(new SelectList((result), "Id", "Name"), JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult DropDownPurchasesBySupplier( int Id)
+        {
+            dynamic result;
+            try
+            {
+                result = from pro in repo.GetAllPurchases().Result
+                             where pro.SupplierId.Equals(Id)
+                             select new {Id=pro.Id, Name=pro.InvoiecNo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(new SelectList((result), "Id", "Name"), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult DropDownPurchasesByPurcheaseId(int Id)
+        {
+            dynamic result;
+            try
+            {
+                result = from pro in repo.GetAllPurchases().Result
+                         join prod in prodrepo.GetAllPurcheaseDetails().Result on pro.Id equals prod.PurchaseId
+                         join product in prorepo.DropDownProducts().Result on prod.ProductId equals product.Id
+                         where pro.Id.Equals(Id)
+                         select new { Id = prod.ProductId, Name = product.Name };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(new SelectList((result), "Id", "Name"), JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -48,6 +48,9 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -266,6 +269,7 @@
     <Compile Include="Areas\Config\ConfigAreaRegistration.cs" />
     <Compile Include="Areas\Config\Controllers\CountryController.cs" />
     <Compile Include="Areas\Config\Controllers\CustomersController.cs" />
+    <Compile Include="Areas\Config\Controllers\DropDownController.cs" />
     <Compile Include="Areas\Config\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\Config\Controllers\MarketsController.cs" />
     <Compile Include="Areas\Config\Controllers\ProductBrandsController.cs" />
@@ -278,6 +282,8 @@
     <Compile Include="Areas\Config\Controllers\UOMController.cs" />
     <Compile Include="Areas\Config\Controllers\ZoneOrAreasController.cs" />
     <Compile Include="Areas\CRM\Controllers\PurchasesController.cs" />
+    <Compile Include="Areas\CRM\Controllers\PurcheaseReturnsController.cs" />
+    <Compile Include="Areas\CRM\Controllers\SalesController.cs" />
     <Compile Include="Areas\CRM\Controllers\StocksController.cs" />
     <Compile Include="Areas\CRM\CRMAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -288,6 +294,17 @@
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
+    <Compile Include="Files\DataSet\dbPorduct.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbPorduct.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Files\Reports\rptProducts.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptProducts.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -681,6 +698,26 @@
     <Content Include="Areas\CRM\Views\Purchase\PurcheaseDetail.cshtml" />
     <Content Include="Areas\CRM\Views\Purchase\Edit.cshtml" />
     <Content Include="Areas\CRM\Views\Stock\Index.cshtml" />
+    <Content Include="Areas\CRM\Views\PurcheaseReturn\Index.cshtml" />
+    <Content Include="Areas\CRM\Views\PurcheaseReturn\Create.cshtml" />
+    <Content Include="Areas\CRM\Views\PurcheaseReturn\Edit.cshtml" />
+    <Content Include="Areas\CRM\Views\PurcheaseReturn\PurcheaseReturnDetail.cshtml" />
+    <Content Include="Areas\CRM\Views\Sale\Index.cshtml" />
+    <Content Include="Areas\CRM\Views\Sale\Create.cshtml" />
+    <Content Include="Areas\CRM\Views\Sale\SalesDetails.cshtml" />
+    <Content Include="Areas\CRM\Views\Sale\SalesDetail.cshtml" />
+    <Content Include="Areas\CRM\Views\Sale\Edit.cshtml" />
+    <Content Include="Files\DataSet\dbPorduct.xsc">
+      <DependentUpon>dbPorduct.xsd</DependentUpon>
+    </Content>
+    <None Include="Files\DataSet\dbPorduct.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dbPorduct.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Files\DataSet\dbPorduct.xss">
+      <DependentUpon>dbPorduct.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\app.config.seed.js" />
     <Content Include="Scripts\app.config.seed.min.js" />
@@ -767,6 +804,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Config\Models\" />
+    <Folder Include="Areas\Config\Views\DropDown\" />
     <Folder Include="Areas\Config\Views\Shared - Copy\" />
     <Folder Include="Areas\CRM\Models\" />
     <Folder Include="Content\img\realestate\thumbs\" />
@@ -805,10 +843,18 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Files\Reports\rptProductDetail.rdlc" />
+    <EmbeddedResource Include="Files\Reports\rptProducts.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptProducts.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resource\Controllers.EN.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Controllers.EN.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

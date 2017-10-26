@@ -37,7 +37,7 @@
 </head>
 <body class=" @Settings.CurrentTheme ">
     @*<body class="desktop-detected menu-on-top pace-done @Settings.CurrentTheme ">  *@
-        @{ Html.RenderPartial("_Header", RenderSection("topright", false)); }
+        @{ Html.RenderPartial("_Header", RenderSection("topright", true)); }
         @{ Html.RenderPartialIf("_Aside", true); }
         <div id="main" role="main">
             @{ Html.RenderPartialIf("_Ribbon", true); }
@@ -48,7 +48,7 @@
             Html.RenderPartial("_Footer");
             Html.RenderPartialIf("_Tiles", Settings.EnableTiles);
         }
-        @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
+        @{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", true)); }
     </body>
 
 </html>

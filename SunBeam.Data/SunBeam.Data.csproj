@@ -76,6 +76,11 @@
     <Compile Include="Repositories\Implementations\ProductTypesRepository.cs" />
     <Compile Include="Repositories\Implementations\PurchasesRepository.cs" />
     <Compile Include="Repositories\Implementations\PurcheaseDetailsRepository.cs" />
+    <Compile Include="Repositories\Implementations\PurcheaseReturnDetailsRepository.cs" />
+    <Compile Include="Repositories\Implementations\PurcheaseReturnsRepository.cs" />
+    <Compile Include="Repositories\Implementations\SalesDetailsRepository.cs" />
+    <Compile Include="Repositories\Implementations\SalesRepository.cs" />
+    <Compile Include="Repositories\Implementations\StockDetailsRepository.cs" />
     <Compile Include="Repositories\Implementations\StocksRepository.cs" />
     <Compile Include="Repositories\Implementations\SuppliersRepository.cs" />
     <Compile Include="Repositories\Implementations\UOMRepository.cs" />

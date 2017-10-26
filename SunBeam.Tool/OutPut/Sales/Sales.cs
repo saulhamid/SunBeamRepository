@@ -9,7 +9,6 @@ namespace SunBeam.Domain.Models
       public int CustomerId { get; set; }
       public int ZoneOrAreaId { get; set; }
       public int EmployeeId { get; set; }
-      public string DiscountRemarks { get; set; }
       public decimal Discount { get; set; }
       public decimal TotalDiscount { get; set; }
       public decimal TotalPaid { get; set; }

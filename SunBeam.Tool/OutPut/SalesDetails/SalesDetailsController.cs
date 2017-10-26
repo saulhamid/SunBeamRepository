@@ -43,7 +43,7 @@ catch (Exception ex)
 return Json(result,JsonRequestBehavior.AllowGet); 
 } 
 [HttpGet] 
-public Task<ActionResult> Edit(int Id) 
+public ActionResult Edit(int Id) 
 { 
  dynamic data; 
  try
@@ -78,7 +78,7 @@ string[] IdList = ids.Split('~');
 SalesDetails vm = new SalesDetails(); 
 try 
 { 
- result = await repo.DeleteSalesDetails(IdList,vm); 
+ result = await repo.IsDeleteSalesDetails(IdList,vm); 
  }
 catch (Exception ex) 
 { 

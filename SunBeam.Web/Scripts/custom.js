@@ -347,9 +347,7 @@ function InitDropDowns() {
             cache: dataCache,
             success: function (jsonData, textStatus, XMLHttpRequest) {
                 var Listitems = '<option value="">Select</option>';
-
                 $.each(jsonData, function (i, item) {
-
                     if (selected && selected === item.Value) {
                         Listitems += "<option selected='selected' value='" + item.Value + "'>" + item.Text + "</option>";
                     }

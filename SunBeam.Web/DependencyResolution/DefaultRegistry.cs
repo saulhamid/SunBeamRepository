@@ -50,7 +50,11 @@ namespace SunBeam.Web.DependencyResolution
             For<IPurchasesBL>().Use<PurchasesBL>();
             For<IPurcheaseDetailsBL>().Use<PurcheaseDetailsBL>();
             For<IStocksBL>().Use<StocksBL>();
-
+            For<IStocksBL>().Use<StocksBL>();
+            For<IPurcheaseReturnsBL>().Use<PurcheaseReturnsBL>();
+            For<ISalesBL>().Use<SalesBL>();
+            For<ISalesDetailsBL>().Use<SalesDetailsBL>();
+            For<IStockDetailsBL>().Use<StockDetailsBL>(); 
             //  For<IDBGeneric<typeof>> ().Use< Data.Infrastructure.DBGeneric < typeof>> ();
         }
 

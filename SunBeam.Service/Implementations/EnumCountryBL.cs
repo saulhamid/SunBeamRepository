@@ -1,5 +1,6 @@
 using SunBeam.Common.Log;
 using SunBeam.Data.Repositories.Implementations;
+using SunBeam.Data.Repositories.Interfaces;
 using SunBeam.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,11 @@ namespace SunBeam.Service.Interfaces
     {
 
         protected ILogger logger { get; set; }
-
-        public EnumCountryBL(ILogger logger)
+        protected IRepository<EnumCountry> IRepository { get; set; }
+        public EnumCountryBL(ILogger logger, IRepository<EnumCountry> IRepository)
         {
             this.logger = logger;
+            this.IRepository = IRepository;
         }
 
         /// <summary>
@@ -109,7 +111,7 @@ namespace SunBeam.Service.Interfaces
         {
             try
             {
-                var result = await new EnumCountryRepository(logger).GetAll();
+                var result = await IRepository.GetAll();
                 return result;
             }
             catch (Exception ex)
