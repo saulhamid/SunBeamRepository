@@ -27,7 +27,6 @@ if(@pOptions=1)
 begin
 INSERT INTO ProductColor
 (
-Id,
 Code,
 Name,
 Remarks,
@@ -43,7 +42,6 @@ LastUpdateFrom
 )
 VALUES
 (	
-@Id,
 @Code,
 @Name,
 @Remarks,
@@ -80,9 +78,6 @@ Name	=	@Name ,
 Remarks	=	@Remarks ,
 IsActive	=	@IsActive ,
 IsArchive	=	@IsArchive ,
-CreatedBy	=	@CreatedBy ,
-CreatedAt	=	@CreatedAt ,
-CreatedFrom	=	@CreatedFrom ,
 LastUpdateBy	=	@LastUpdateBy ,
 LastUpdateAt	=	@LastUpdateAt ,
 LastUpdateFrom	=	@LastUpdateFrom 
@@ -151,7 +146,7 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from ProductColor;
+select * from ProductColor where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -165,7 +160,7 @@ end
 --Select ProductColor By Id 
 if(@pOptions=6)
 begin
-select * from ProductColor Where Id=@Id;
+select * from ProductColor Where Id=@Id and IsArchive=0;
 
 
 
@@ -182,7 +177,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from ProductColor;
+select Id,Name  from ProductColor Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

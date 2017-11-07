@@ -123,7 +123,7 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from UserRoles;
+select * from UserRoles where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -137,7 +137,7 @@ end
 --Select UserRoles By Id 
 if(@pOptions=6)
 begin
-select * from UserRoles Where Id=@Id;
+select * from UserRoles Where Id=@Id and IsArchive=0;
 
 
 
@@ -154,7 +154,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from UserRoles;
+select Id,Name  from UserRoles Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

@@ -155,7 +155,7 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from EnumDistric;
+select * from EnumDistric where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -169,7 +169,7 @@ end
 --Select EnumDistric By Id 
 if(@pOptions=6)
 begin
-select * from EnumDistric Where Id=@Id;
+select * from EnumDistric Where Id=@Id and IsArchive=0;
 
 
 
@@ -186,7 +186,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from EnumDistric;
+select Id,Name  from EnumDistric Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

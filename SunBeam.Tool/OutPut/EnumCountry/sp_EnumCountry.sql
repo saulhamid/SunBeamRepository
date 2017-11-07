@@ -3,7 +3,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-alter  proc [dbo].[sp_EnumCountry]
+CREATE  proc [dbo].[sp_EnumCountry]
 (
 @Id		int = null,
 @Name		nvarchar(200) = null,
@@ -32,10 +32,7 @@ IsActive,
 IsArchive,
 CreatedBy,
 CreatedAt,
-CreatedFrom,
-LastUpdateBy,
-LastUpdateAt,
-LastUpdateFrom
+CreatedFrom
 
 )
 VALUES
@@ -46,10 +43,7 @@ VALUES
 @IsArchive,
 @CreatedBy,
 @CreatedAt,
-@CreatedFrom,
-@LastUpdateBy,
-@LastUpdateAt,
-@LastUpdateFrom
+@CreatedFrom
 
 )
 IF @@ROWCOUNT = 0
@@ -74,9 +68,6 @@ Name	=	@Name ,
 Remarks	=	@Remarks ,
 IsActive	=	@IsActive ,
 IsArchive	=	@IsArchive ,
-CreatedBy	=	@CreatedBy ,
-CreatedAt	=	@CreatedAt ,
-CreatedFrom	=	@CreatedFrom ,
 LastUpdateBy	=	@LastUpdateBy ,
 LastUpdateAt	=	@LastUpdateAt ,
 LastUpdateFrom	=	@LastUpdateFrom 
@@ -176,7 +167,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from EnumCountry Where IsActive=1 and IsArchive=0;
+select Id,Name  from EnumCountry Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

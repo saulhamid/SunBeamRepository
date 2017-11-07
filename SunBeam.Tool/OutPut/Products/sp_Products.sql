@@ -6,14 +6,15 @@ GO
 CREATE  proc [dbo].[sp_Products]
 (
 @Id		int = null,
-@Name		nvarchar(200) = null,
 @Code		nvarchar(20) = null,
+@Name		nvarchar(50) = null,
 @UOMId		int = null,
 @ProductBrandId		int = null,
 @ProductCatagoriesId		int = null,
 @ProductColorId		int = null,
 @ProductSizeId		int = null,
 @ProductTypeId		int = null,
+@SupplierName		nvarchar(100) = null,
 @SupplierId		int = null,
 @MinimumStock		int = null,
 @OtherCost		decimal = null,
@@ -41,14 +42,15 @@ begin
 INSERT INTO Products
 (
 Id,
-Name,
 Code,
+Name,
 UOMId,
 ProductBrandId,
 ProductCatagoriesId,
 ProductColorId,
 ProductSizeId,
 ProductTypeId,
+SupplierName,
 SupplierId,
 MinimumStock,
 OtherCost,
@@ -70,14 +72,15 @@ LastUpdateFrom
 VALUES
 (	
 @Id,
-@Name,
 @Code,
+@Name,
 @UOMId,
 @ProductBrandId,
 @ProductCatagoriesId,
 @ProductColorId,
 @ProductSizeId,
 @ProductTypeId,
+@SupplierName,
 @SupplierId,
 @MinimumStock,
 @OtherCost,
@@ -114,14 +117,15 @@ if(@pOptions=2)
 begin
 UPDATE	Products 
 SET
-Name	=	@Name ,
 Code	=	@Code ,
+Name	=	@Name ,
 UOMId	=	@UOMId ,
 ProductBrandId	=	@ProductBrandId ,
 ProductCatagoriesId	=	@ProductCatagoriesId ,
 ProductColorId	=	@ProductColorId ,
 ProductSizeId	=	@ProductSizeId ,
 ProductTypeId	=	@ProductTypeId ,
+SupplierName	=	@SupplierName ,
 SupplierId	=	@SupplierId ,
 MinimumStock	=	@MinimumStock ,
 OtherCost	=	@OtherCost ,

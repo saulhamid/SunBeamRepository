@@ -183,7 +183,7 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from Users;
+select * from Users where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -197,7 +197,7 @@ end
 --Select Users By Id 
 if(@pOptions=6)
 begin
-select * from Users Where Id=@Id;
+select * from Users Where Id=@Id and IsArchive=0;
 
 
 
@@ -214,7 +214,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from Users;
+select Id,Name  from Users Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

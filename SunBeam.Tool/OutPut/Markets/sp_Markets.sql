@@ -29,7 +29,7 @@ if(@pOptions=1)
 begin
 INSERT INTO Markets
 (
-
+Id,
 ZoneOrAreaId,
 Code,
 Name,
@@ -39,11 +39,15 @@ IsActive,
 IsArchive,
 CreatedBy,
 CreatedAt,
-CreatedFrom
+CreatedFrom,
+LastUpdateBy,
+LastUpdateAt,
+LastUpdateFrom
 
 )
 VALUES
 (	
+@Id,
 @ZoneOrAreaId,
 @Code,
 @Name,
@@ -51,6 +55,9 @@ VALUES
 @Remarks,
 @IsActive,
 @IsArchive,
+@CreatedBy,
+@CreatedAt,
+@CreatedFrom,
 @LastUpdateBy,
 @LastUpdateAt,
 @LastUpdateFrom

@@ -3,7 +3,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-alter  proc [dbo].[sp_ZoneOrAreas]
+CREATE  proc [dbo].[sp_ZoneOrAreas]
 (
 @Id		int = null,
 @Code		nvarchar(20) = null,
@@ -28,6 +28,7 @@ if(@pOptions=1)
 begin
 INSERT INTO ZoneOrAreas
 (
+Id,
 Code,
 Name,
 Description,
@@ -36,11 +37,15 @@ IsActive,
 IsArchive,
 CreatedBy,
 CreatedAt,
-CreatedFrom
+CreatedFrom,
+LastUpdateBy,
+LastUpdateAt,
+LastUpdateFrom
 
 )
 VALUES
 (	
+@Id,
 @Code,
 @Name,
 @Description,
@@ -49,7 +54,10 @@ VALUES
 @IsArchive,
 @CreatedBy,
 @CreatedAt,
-@CreatedFrom
+@CreatedFrom,
+@LastUpdateBy,
+@LastUpdateAt,
+@LastUpdateFrom
 
 )
 IF @@ROWCOUNT = 0
@@ -76,6 +84,9 @@ Description	=	@Description ,
 Remarks	=	@Remarks ,
 IsActive	=	@IsActive ,
 IsArchive	=	@IsArchive ,
+CreatedBy	=	@CreatedBy ,
+CreatedAt	=	@CreatedAt ,
+CreatedFrom	=	@CreatedFrom ,
 LastUpdateBy	=	@LastUpdateBy ,
 LastUpdateAt	=	@LastUpdateAt ,
 LastUpdateFrom	=	@LastUpdateFrom 

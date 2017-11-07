@@ -78,7 +78,7 @@ string[] IdList = ids.Split('~');
 ZoneOrAreas vm = new ZoneOrAreas(); 
 try 
 { 
- result = await repo.DeleteZoneOrAreas(IdList,vm); 
+ result = await repo.IsDeleteZoneOrAreas(IdList,vm); 
  }
 catch (Exception ex) 
 { 

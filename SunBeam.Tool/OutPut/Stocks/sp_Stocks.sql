@@ -3,13 +3,18 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE  proc [dbo].[sp_Stocks]
+alter  proc [dbo].[sp_Stocks]
 (
 @Id		int = null,
 @ProductId		int = null,
+@TotalReplace		decimal = null,
+@TotalReturn		decimal = null,
+@TotalDiscount		decimal = null,
+@TotalSlup		decimal = null,
+@StockQuantity		decimal = null,
+@TotalQuantity		decimal = null,
 @TotalPaid		decimal = null,
 @TotalPrice		decimal = null,
-@Quantity		decimal = null,
 @GrandTotal		decimal = null,
 @Date		nvarchar(50) = null,
 @FinalUnitPrice		decimal = null,
@@ -21,6 +26,9 @@ CREATE  proc [dbo].[sp_Stocks]
 @CreatedBy		nvarchar(50) = null,
 @CreatedAt		nvarchar(50) = null,
 @CreatedFrom		nvarchar(50) = null,
+@LastUpdateBy		nvarchar(50) = null,
+@LastUpdateAt		nvarchar(50) = null,
+@LastUpdateFrom		nvarchar(50) = null,
 
 @Msg				nvarchar(MAX)=null OUT ,
 @pOptions			int 
@@ -31,11 +39,15 @@ if(@pOptions=1)
 begin
 INSERT INTO Stocks
 (
-Id,
 ProductId,
+TotalReplace,
+TotalReturn,
+TotalDiscount,
+TotalSlup,
+StockQuantity,
+TotalQuantity,
 TotalPaid,
 TotalPrice,
-Quantity,
 GrandTotal,
 Date,
 FinalUnitPrice,
@@ -51,11 +63,15 @@ CreatedFrom
 )
 VALUES
 (	
-@Id,
 @ProductId,
+@TotalReplace,
+@TotalReturn,
+@TotalDiscount,
+@TotalSlup,
+@StockQuantity,
+@TotalQuantity,
 @TotalPaid,
 @TotalPrice,
-@Quantity,
 @GrandTotal,
 @Date,
 @FinalUnitPrice,
@@ -89,9 +105,14 @@ UPDATE	Stocks
 SET
 Id	=	@Id ,
 ProductId	=	@ProductId ,
+TotalReplace	=	@TotalReplace ,
+TotalReturn	=	@TotalReturn ,
+TotalDiscount	=	@TotalDiscount ,
+TotalSlup	=	@TotalSlup ,
+StockQuantity	=	@StockQuantity ,
+TotalQuantity	=	@TotalQuantity ,
 TotalPaid	=	@TotalPaid ,
 TotalPrice	=	@TotalPrice ,
-Quantity	=	@Quantity ,
 GrandTotal	=	@GrandTotal ,
 Date	=	@Date ,
 FinalUnitPrice	=	@FinalUnitPrice ,
@@ -100,9 +121,9 @@ Remarks	=	@Remarks ,
 StockStutes	=	@StockStutes ,
 IsActive	=	@IsActive ,
 IsArchive	=	@IsArchive ,
-CreatedBy	=	@CreatedBy ,
-CreatedAt	=	@CreatedAt ,
-CreatedFrom	=	@CreatedFrom 
+LastUpdateBy	=	@LastUpdateBy ,
+LastUpdateAt	=	@LastUpdateAt ,
+LastUpdateFrom	=	@LastUpdateFrom 
 
 
 
@@ -199,7 +220,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from Stocks Where IsActive=1 and IsArchive=0;;
+select Id  from Stocks Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

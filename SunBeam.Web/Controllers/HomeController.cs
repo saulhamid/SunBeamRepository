@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace SunBeam.Web.Controllers
 {
@@ -25,6 +21,10 @@ namespace SunBeam.Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public ActionResult Home()
+        {
+            return PartialView();
         }
     }
 }

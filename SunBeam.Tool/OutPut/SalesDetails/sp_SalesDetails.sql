@@ -53,7 +53,7 @@ Slup,
 Bonus,
 AssaignQuantity,
 SalesQuantity,
-Return,
+[Return],
 Replace,
 TotalSlupPrice,
 WithOurDiscountPrice,
@@ -63,10 +63,7 @@ IsActive,
 IsArchive,
 CreatedBy,
 CreatedAt,
-CreatedFrom,
-LastUpdateBy,
-LastUpdateAt,
-LastUpdateFrom
+CreatedFrom
 
 )
 VALUES
@@ -93,10 +90,7 @@ VALUES
 @IsArchive,
 @CreatedBy,
 @CreatedAt,
-@CreatedFrom,
-@LastUpdateBy,
-@LastUpdateAt,
-@LastUpdateFrom
+@CreatedFrom
 
 )
 IF @@ROWCOUNT = 0
@@ -128,7 +122,7 @@ Slup	=	@Slup ,
 Bonus	=	@Bonus ,
 AssaignQuantity	=	@AssaignQuantity ,
 SalesQuantity	=	@SalesQuantity ,
-Return	=	@Return ,
+[Return]	=	@Return ,
 Replace	=	@Replace ,
 TotalSlupPrice	=	@TotalSlupPrice ,
 WithOurDiscountPrice	=	@WithOurDiscountPrice ,

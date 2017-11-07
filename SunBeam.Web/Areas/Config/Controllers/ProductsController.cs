@@ -116,10 +116,10 @@ namespace SunBeam.Web.Areas.Config.Controllers
         [HttpGet]
         public ActionResult Edit(int Id)
         {
-            dynamic data;
+            Products data =new Products();
             try
             {
-                data = repo.GetProductsById(Id).Result;
+                data = repo.GetProductsById(Id: Id).Result;
             }
             catch (Exception ex)
             {

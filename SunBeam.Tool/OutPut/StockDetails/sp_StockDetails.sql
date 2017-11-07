@@ -278,7 +278,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from StockDetails Where IsActive=1 and IsArchive=0;;
+select Id  from StockDetails Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

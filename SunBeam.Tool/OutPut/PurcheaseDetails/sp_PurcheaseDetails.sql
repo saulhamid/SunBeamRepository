@@ -8,6 +8,8 @@ CREATE  proc [dbo].[sp_PurcheaseDetails]
 @Id		int = null,
 @PurchaseId		int = null,
 @ProductId		int = null,
+@ProductName		nvarchar(50) = null,
+@ProductCode		nvarchar(50) = null,
 @UnitePrice		decimal = null,
 @Date		nvarchar(50) = null,
 @Quantity		decimal = null,
@@ -33,8 +35,11 @@ if(@pOptions=1)
 begin
 INSERT INTO PurcheaseDetails
 (
+Id,
 PurchaseId,
 ProductId,
+ProductName,
+ProductCode,
 UnitePrice,
 Date,
 Quantity,
@@ -46,13 +51,19 @@ IsActive,
 IsArchive,
 CreatedAt,
 CreatedFrom,
-CreatedAtBy
+CreatedAtBy,
+LastUpdateBy,
+LastUpdateAt,
+LastUpdateFrom
 
 )
 VALUES
 (	
+@Id,
 @PurchaseId,
 @ProductId,
+@ProductName,
+@ProductCode,
 @UnitePrice,
 @Date,
 @Quantity,
@@ -64,7 +75,10 @@ VALUES
 @IsArchive,
 @CreatedAt,
 @CreatedFrom,
-@CreatedAtBy
+@CreatedAtBy,
+@LastUpdateBy,
+@LastUpdateAt,
+@LastUpdateFrom
 
 )
 IF @@ROWCOUNT = 0
@@ -87,6 +101,8 @@ UPDATE	PurcheaseDetails
 SET
 PurchaseId	=	@PurchaseId ,
 ProductId	=	@ProductId ,
+ProductName	=	@ProductName ,
+ProductCode	=	@ProductCode ,
 UnitePrice	=	@UnitePrice ,
 Date	=	@Date ,
 Quantity	=	@Quantity ,
@@ -96,6 +112,9 @@ TotalPrice	=	@TotalPrice ,
 Remarks	=	@Remarks ,
 IsActive	=	@IsActive ,
 IsArchive	=	@IsArchive ,
+CreatedAt	=	@CreatedAt ,
+CreatedFrom	=	@CreatedFrom ,
+CreatedAtBy	=	@CreatedAtBy ,
 LastUpdateBy	=	@LastUpdateBy ,
 LastUpdateAt	=	@LastUpdateAt ,
 LastUpdateFrom	=	@LastUpdateFrom 
@@ -133,7 +152,7 @@ LastUpdateBy	=	@LastUpdateBy ,
 LastUpdateAt	=	@LastUpdateAt ,
 LastUpdateFrom	=	@LastUpdateFrom 
 WHERE	Id	=	@Id;
-SET @Msg='Success~Data Deleted Successfully';
+SET @Msg='Data Deleted Successfully';
 end
 
 
@@ -149,7 +168,7 @@ end
 if(@pOptions=4)
 begin
 Delete from PurcheaseDetails Where Id=@Id;
-SET @Msg='Success~Data Deleted Successfully';
+SET @Msg='Data Deleted Successfully';
 end
 
 
@@ -164,11 +183,9 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from PurcheaseDetails	pd
-left outer join Products p on p.Id=pd.ProductId
- where pd.IsArchive=0;
+select * from PurcheaseDetails where IsArchive=0;
 if(@@ROWCOUNT=0)
-SET @Msg='Fail~Data Not Found';
+SET @Msg='Data Not Found';
 end
 
 
@@ -197,25 +214,11 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id  from PurcheaseDetails Where IsActive=1 and IsArchive=0;;
+select Id,Name  from PurcheaseDetails Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
 
 
 
---End Select Id,Name PurcheaseDetails
-
---IsDelete PurcheaseDetails
-
-
-
-if(@pOptions=8)
-begin
-Delete from PurcheaseDetails Where Id=@Id;
-SET @Msg='Success~Data Deleted Successfully';
-end
-
-
-
---End of Delete PurcheaseDetails  
+--End Select Id,Name PurcheaseDetails 

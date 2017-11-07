@@ -34,14 +34,15 @@ try
 {
 var cmd = new SqlCommand("sp_Products");
 cmd.Parameters.AddWithValue("@Id", entity.Id);
-cmd.Parameters.AddWithValue("@Name", entity.Name);
 cmd.Parameters.AddWithValue("@Code", entity.Code);
+cmd.Parameters.AddWithValue("@Name", entity.Name);
 cmd.Parameters.AddWithValue("@UOMId", entity.UOMId);
 cmd.Parameters.AddWithValue("@ProductBrandId", entity.ProductBrandId);
 cmd.Parameters.AddWithValue("@ProductCatagoriesId", entity.ProductCatagoriesId);
 cmd.Parameters.AddWithValue("@ProductColorId", entity.ProductColorId);
 cmd.Parameters.AddWithValue("@ProductSizeId", entity.ProductSizeId);
 cmd.Parameters.AddWithValue("@ProductTypeId", entity.ProductTypeId);
+cmd.Parameters.AddWithValue("@SupplierName", entity.SupplierName);
 cmd.Parameters.AddWithValue("@SupplierId", entity.SupplierId);
 cmd.Parameters.AddWithValue("@MinimumStock", entity.MinimumStock);
 cmd.Parameters.AddWithValue("@OtherCost", entity.OtherCost);
@@ -84,14 +85,15 @@ try
 {
 var cmd = new SqlCommand("sp_Products");
 cmd.Parameters.AddWithValue("@Id", entity.Id);
-cmd.Parameters.AddWithValue("@Name", entity.Name);
 cmd.Parameters.AddWithValue("@Code", entity.Code);
+cmd.Parameters.AddWithValue("@Name", entity.Name);
 cmd.Parameters.AddWithValue("@UOMId", entity.UOMId);
 cmd.Parameters.AddWithValue("@ProductBrandId", entity.ProductBrandId);
 cmd.Parameters.AddWithValue("@ProductCatagoriesId", entity.ProductCatagoriesId);
 cmd.Parameters.AddWithValue("@ProductColorId", entity.ProductColorId);
 cmd.Parameters.AddWithValue("@ProductSizeId", entity.ProductSizeId);
 cmd.Parameters.AddWithValue("@ProductTypeId", entity.ProductTypeId);
+cmd.Parameters.AddWithValue("@SupplierName", entity.SupplierName);
 cmd.Parameters.AddWithValue("@SupplierId", entity.SupplierId);
 cmd.Parameters.AddWithValue("@MinimumStock", entity.MinimumStock);
 cmd.Parameters.AddWithValue("@OtherCost", entity.OtherCost);
@@ -236,14 +238,15 @@ try
 {
 Products oProducts = new Products();
 oProducts.Id = Helper.ColumnExists(reader, "Id") ? ((reader["Id"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["Id"])) : 0 ;
-oProducts.Name = Helper.ColumnExists(reader, "Name") ? reader["Name"].ToString() : "";
 oProducts.Code = Helper.ColumnExists(reader, "Code") ? reader["Code"].ToString() : "";
+oProducts.Name = Helper.ColumnExists(reader, "Name") ? reader["Name"].ToString() : "";
 oProducts.UOMId = Helper.ColumnExists(reader, "UOMId") ? ((reader["UOMId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["UOMId"])) : 0 ;
 oProducts.ProductBrandId = Helper.ColumnExists(reader, "ProductBrandId") ? ((reader["ProductBrandId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["ProductBrandId"])) : 0 ;
 oProducts.ProductCatagoriesId = Helper.ColumnExists(reader, "ProductCatagoriesId") ? ((reader["ProductCatagoriesId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["ProductCatagoriesId"])) : 0 ;
 oProducts.ProductColorId = Helper.ColumnExists(reader, "ProductColorId") ? ((reader["ProductColorId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["ProductColorId"])) : 0 ;
 oProducts.ProductSizeId = Helper.ColumnExists(reader, "ProductSizeId") ? ((reader["ProductSizeId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["ProductSizeId"])) : 0 ;
 oProducts.ProductTypeId = Helper.ColumnExists(reader, "ProductTypeId") ? ((reader["ProductTypeId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["ProductTypeId"])) : 0 ;
+oProducts.SupplierName = Helper.ColumnExists(reader, "SupplierName") ? reader["SupplierName"].ToString() : "";
 oProducts.SupplierId = Helper.ColumnExists(reader, "SupplierId") ? ((reader["SupplierId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["SupplierId"])) : 0 ;
 oProducts.MinimumStock = Helper.ColumnExists(reader, "MinimumStock") ? ((reader["MinimumStock"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["MinimumStock"])) : 0 ;
 oProducts.OtherCost = Helper.ColumnExists(reader, "OtherCost") ? ((reader["OtherCost"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["OtherCost"])) : 0;

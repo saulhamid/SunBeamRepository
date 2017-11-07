@@ -3,7 +3,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-alter  proc [dbo].[sp_Employee]
+CREATE  proc [dbo].[sp_Employee]
 (
 @Id		int = null,
 @BranchId		int = null,
@@ -61,6 +61,7 @@ IsArchive,
 CreatedBy,
 CreatedAt,
 CreatedFrom
+
 )
 VALUES
 (	
@@ -103,7 +104,6 @@ end
 --Update Employee 
 if(@pOptions=2)
 begin
-SET NOCOUNT ON;
 UPDATE	Employee 
 SET
 BranchId	=	@BranchId ,

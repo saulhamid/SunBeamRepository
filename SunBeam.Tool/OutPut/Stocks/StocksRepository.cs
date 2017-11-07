@@ -35,9 +35,14 @@ try
 var cmd = new SqlCommand("sp_Stocks");
 cmd.Parameters.AddWithValue("@Id", entity.Id);
 cmd.Parameters.AddWithValue("@ProductId", entity.ProductId);
+cmd.Parameters.AddWithValue("@TotalReplace", entity.TotalReplace);
+cmd.Parameters.AddWithValue("@TotalReturn", entity.TotalReturn);
+cmd.Parameters.AddWithValue("@TotalDiscount", entity.TotalDiscount);
+cmd.Parameters.AddWithValue("@TotalSlup", entity.TotalSlup);
+cmd.Parameters.AddWithValue("@StockQuantity", entity.StockQuantity);
+cmd.Parameters.AddWithValue("@TotalQuantity", entity.TotalQuantity);
 cmd.Parameters.AddWithValue("@TotalPaid", entity.TotalPaid);
 cmd.Parameters.AddWithValue("@TotalPrice", entity.TotalPrice);
-cmd.Parameters.AddWithValue("@Quantity", entity.Quantity);
 cmd.Parameters.AddWithValue("@GrandTotal", entity.GrandTotal);
 cmd.Parameters.AddWithValue("@Date", entity.Date);
 cmd.Parameters.AddWithValue("@FinalUnitPrice", entity.FinalUnitPrice);
@@ -49,6 +54,9 @@ cmd.Parameters.AddWithValue("@IsArchive", entity.IsArchive);
 cmd.Parameters.AddWithValue("@CreatedBy", entity.CreatedBy);
 cmd.Parameters.AddWithValue("@CreatedAt", entity.CreatedAt);
 cmd.Parameters.AddWithValue("@CreatedFrom", entity.CreatedFrom);
+cmd.Parameters.AddWithValue("@LastUpdateBy", entity.LastUpdateBy);
+cmd.Parameters.AddWithValue("@LastUpdateAt", entity.LastUpdateAt);
+cmd.Parameters.AddWithValue("@LastUpdateFrom", entity.LastUpdateFrom);
 
 cmd.Parameters.Add("@Msg", SqlDbType.NChar, 500);
 cmd.Parameters["@Msg"].Direction = ParameterDirection.Output;
@@ -76,9 +84,14 @@ try
 var cmd = new SqlCommand("sp_Stocks");
 cmd.Parameters.AddWithValue("@Id", entity.Id);
 cmd.Parameters.AddWithValue("@ProductId", entity.ProductId);
+cmd.Parameters.AddWithValue("@TotalReplace", entity.TotalReplace);
+cmd.Parameters.AddWithValue("@TotalReturn", entity.TotalReturn);
+cmd.Parameters.AddWithValue("@TotalDiscount", entity.TotalDiscount);
+cmd.Parameters.AddWithValue("@TotalSlup", entity.TotalSlup);
+cmd.Parameters.AddWithValue("@StockQuantity", entity.StockQuantity);
+cmd.Parameters.AddWithValue("@TotalQuantity", entity.TotalQuantity);
 cmd.Parameters.AddWithValue("@TotalPaid", entity.TotalPaid);
 cmd.Parameters.AddWithValue("@TotalPrice", entity.TotalPrice);
-cmd.Parameters.AddWithValue("@Quantity", entity.Quantity);
 cmd.Parameters.AddWithValue("@GrandTotal", entity.GrandTotal);
 cmd.Parameters.AddWithValue("@Date", entity.Date);
 cmd.Parameters.AddWithValue("@FinalUnitPrice", entity.FinalUnitPrice);
@@ -90,6 +103,9 @@ cmd.Parameters.AddWithValue("@IsArchive", entity.IsArchive);
 cmd.Parameters.AddWithValue("@CreatedBy", entity.CreatedBy);
 cmd.Parameters.AddWithValue("@CreatedAt", entity.CreatedAt);
 cmd.Parameters.AddWithValue("@CreatedFrom", entity.CreatedFrom);
+cmd.Parameters.AddWithValue("@LastUpdateBy", entity.LastUpdateBy);
+cmd.Parameters.AddWithValue("@LastUpdateAt", entity.LastUpdateAt);
+cmd.Parameters.AddWithValue("@LastUpdateFrom", entity.LastUpdateFrom);
 
 cmd.Parameters.Add("@Msg", SqlDbType.NChar, 500);
 cmd.Parameters["@Msg"].Direction = ParameterDirection.Output;
@@ -219,9 +235,14 @@ try
 Stocks oStocks = new Stocks();
 oStocks.Id = Helper.ColumnExists(reader, "Id") ? ((reader["Id"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["Id"])) : 0 ;
 oStocks.ProductId = Helper.ColumnExists(reader, "ProductId") ? ((reader["ProductId"] == DBNull.Value) ? 0 : Convert.ToInt32(reader["ProductId"])) : 0 ;
+oStocks.TotalReplace = Helper.ColumnExists(reader, "TotalReplace") ? ((reader["TotalReplace"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["TotalReplace"])) : 0;
+oStocks.TotalReturn = Helper.ColumnExists(reader, "TotalReturn") ? ((reader["TotalReturn"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["TotalReturn"])) : 0;
+oStocks.TotalDiscount = Helper.ColumnExists(reader, "TotalDiscount") ? ((reader["TotalDiscount"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["TotalDiscount"])) : 0;
+oStocks.TotalSlup = Helper.ColumnExists(reader, "TotalSlup") ? ((reader["TotalSlup"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["TotalSlup"])) : 0;
+oStocks.StockQuantity = Helper.ColumnExists(reader, "StockQuantity") ? ((reader["StockQuantity"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["StockQuantity"])) : 0;
+oStocks.TotalQuantity = Helper.ColumnExists(reader, "TotalQuantity") ? ((reader["TotalQuantity"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["TotalQuantity"])) : 0;
 oStocks.TotalPaid = Helper.ColumnExists(reader, "TotalPaid") ? ((reader["TotalPaid"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["TotalPaid"])) : 0;
 oStocks.TotalPrice = Helper.ColumnExists(reader, "TotalPrice") ? ((reader["TotalPrice"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["TotalPrice"])) : 0;
-oStocks.Quantity = Helper.ColumnExists(reader, "Quantity") ? ((reader["Quantity"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["Quantity"])) : 0;
 oStocks.GrandTotal = Helper.ColumnExists(reader, "GrandTotal") ? ((reader["GrandTotal"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["GrandTotal"])) : 0;
 oStocks.Date = Helper.ColumnExists(reader, "Date") ? reader["Date"].ToString() : "";
 oStocks.FinalUnitPrice = Helper.ColumnExists(reader, "FinalUnitPrice") ? ((reader["FinalUnitPrice"] == DBNull.Value) ? 0 : Convert.ToDecimal(reader["FinalUnitPrice"])) : 0;
@@ -233,6 +254,9 @@ oStocks.IsArchive = Helper.ColumnExists(reader, "IsArchive") ? ((reader["IsArchi
 oStocks.CreatedBy = Helper.ColumnExists(reader, "CreatedBy") ? reader["CreatedBy"].ToString() : "";
 oStocks.CreatedAt = Helper.ColumnExists(reader, "CreatedAt") ? reader["CreatedAt"].ToString() : "";
 oStocks.CreatedFrom = Helper.ColumnExists(reader, "CreatedFrom") ? reader["CreatedFrom"].ToString() : "";
+oStocks.LastUpdateBy = Helper.ColumnExists(reader, "LastUpdateBy") ? reader["LastUpdateBy"].ToString() : "";
+oStocks.LastUpdateAt = Helper.ColumnExists(reader, "LastUpdateAt") ? reader["LastUpdateAt"].ToString() : "";
+oStocks.LastUpdateFrom = Helper.ColumnExists(reader, "LastUpdateFrom") ? reader["LastUpdateFrom"].ToString() : "";
 return oStocks;
 }
 catch (Exception ex)

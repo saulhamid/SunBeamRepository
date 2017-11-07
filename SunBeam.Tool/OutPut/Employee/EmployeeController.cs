@@ -78,7 +78,7 @@ string[] IdList = ids.Split('~');
 Employee vm = new Employee(); 
 try 
 { 
- result = await repo.DeleteEmployee(IdList,vm); 
+ result = await repo.IsDeleteEmployee(IdList,vm); 
  }
 catch (Exception ex) 
 { 

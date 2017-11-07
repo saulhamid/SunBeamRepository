@@ -24,34 +24,26 @@ AS
 --Save PaymentType
 if(@pOptions=1)
 begin
-INSERT INTO PaymentType
+INSERT INTO ProductTypes
 (
-Id,
 Name,
 Remarks,
 IsActive,
 IsArchive,
 CreatedBy,
 CreatedAt,
-CreatedFrom,
-LastUpdateBy,
-LastUpdateAt,
-LastUpdateFrom
+CreatedFrom
 
 )
 VALUES
 (	
-@Id,
 @Name,
 @Remarks,
 @IsActive,
 @IsArchive,
 @CreatedBy,
 @CreatedAt,
-@CreatedFrom,
-@LastUpdateBy,
-@LastUpdateAt,
-@LastUpdateFrom
+@CreatedFrom
 
 )
 IF @@ROWCOUNT = 0
@@ -70,16 +62,13 @@ end
 --Update PaymentType 
 if(@pOptions=2)
 begin
-UPDATE	PaymentType 
+UPDATE	ProductTypes 
 SET
 Id	=	@Id ,
 Name	=	@Name ,
 Remarks	=	@Remarks ,
 IsActive	=	@IsActive ,
 IsArchive	=	@IsArchive ,
-CreatedBy	=	@CreatedBy ,
-CreatedAt	=	@CreatedAt ,
-CreatedFrom	=	@CreatedFrom ,
 LastUpdateBy	=	@LastUpdateBy ,
 LastUpdateAt	=	@LastUpdateAt ,
 LastUpdateFrom	=	@LastUpdateFrom 

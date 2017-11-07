@@ -233,7 +233,7 @@ namespace SunBeam.Data.Repositories.Implementations
             {
                 var cmd = new SqlCommand("sp_Products");
                 cmd.Parameters.AddWithValue("@Id", Id);
-                cmd.Parameters.AddWithValue("@pOptions", 6);
+                cmd.Parameters.AddWithValue("@pOptions", 5);
                 var result = await GetByDataReaderProc(cmd);
                 return result;
             }

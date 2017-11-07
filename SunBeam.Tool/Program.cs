@@ -5,8 +5,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Configuration;
 
-namespace FXTF.CRM.AtomAP.CGTool
+
+namespace SunBeam.Tool
 {
     class Program
     {
@@ -19,7 +21,7 @@ namespace FXTF.CRM.AtomAP.CGTool
 
         static void Main(string[] args)
         {
-            connectionString = "Data Source=DESKTOP-3EMQKS8;Initial Catalog=InventoryManagement;User ID=sa;Password=123;Persist Security Info=false;";
+            connectionString = "Data Source=DESKTOP-U8L7TTN;Initial Catalog=InventoryManagement;User ID=sa;Password=123;Persist Security Info=false;";
 
             while (true)
             {

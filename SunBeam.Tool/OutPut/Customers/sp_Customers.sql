@@ -3,7 +3,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-alter  proc [dbo].[sp_Customers]
+CREATE  proc [dbo].[sp_Customers]
 (
 @Id		int = null,
 @Code		nvarchar(20) = null,
@@ -36,6 +36,7 @@ if(@pOptions=1)
 begin
 INSERT INTO Customers
 (
+Id,
 Code,
 Name,
 CountryId,
@@ -60,6 +61,7 @@ LastUpdateFrom
 )
 VALUES
 (	
+@Id,
 @Code,
 @Name,
 @CountryId,

@@ -187,7 +187,7 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from Organizations;
+select * from Organizations where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -201,7 +201,7 @@ end
 --Select Organizations By Id 
 if(@pOptions=6)
 begin
-select * from Organizations Where Id=@Id;
+select * from Organizations Where Id=@Id and IsArchive=0;
 
 
 
@@ -218,7 +218,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from Organizations;
+select Id,Name  from Organizations Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

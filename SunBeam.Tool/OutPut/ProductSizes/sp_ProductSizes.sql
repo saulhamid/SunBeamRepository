@@ -151,7 +151,7 @@ end
 
 if(@pOptions=5)
 begin	        
-select * from ProductSizes;
+select * from ProductSizes where IsArchive=0;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end
@@ -165,7 +165,7 @@ end
 --Select ProductSizes By Id 
 if(@pOptions=6)
 begin
-select * from ProductSizes Where Id=@Id;
+select * from ProductSizes Where Id=@Id and IsArchive=0;
 
 
 
@@ -182,7 +182,7 @@ end
 
 if(@pOptions=7)
 begin	        
-select Id,Name  from ProductSizes;
+select Id,Name  from ProductSizes Where IsActive=1 and IsArchive=0;;
 if(@@ROWCOUNT=0)
 SET @Msg='Data Not Found';
 end

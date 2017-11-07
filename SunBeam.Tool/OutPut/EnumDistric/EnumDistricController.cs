@@ -43,7 +43,7 @@ catch (Exception ex)
 return Json(result,JsonRequestBehavior.AllowGet); 
 } 
 [HttpGet] 
-public Task<ActionResult> Edit(int Id) 
+public ActionResult Edit(int Id) 
 { 
  dynamic data; 
  try
@@ -78,7 +78,7 @@ string[] IdList = ids.Split('~');
 EnumDistric vm = new EnumDistric(); 
 try 
 { 
- result = await repo.DeleteEnumDistric(IdList,vm); 
+ result = await repo.IsDeleteEnumDistric(IdList,vm); 
  }
 catch (Exception ex) 
 { 
