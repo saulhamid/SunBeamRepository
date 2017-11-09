@@ -8,6 +8,8 @@ namespace SunBeam.Domain.Models
       public int SupplierId { get; set; }
       public int EmployeeId { get; set; }
       public string Date { get; set; }
+      public string CouponName { get; set; }
+      public decimal CouponAmunt { get; set; }
       public string Remarks { get; set; }
       public bool IsActive { get; set; }
       public bool IsArchive { get; set; }

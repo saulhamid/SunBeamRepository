@@ -47,9 +47,7 @@ cmd.Parameters.AddWithValue("@IsArchive", entity.IsArchive);
 cmd.Parameters.AddWithValue("@CreatedBy", entity.CreatedBy);
 cmd.Parameters.AddWithValue("@CreatedAt", entity.CreatedAt);
 cmd.Parameters.AddWithValue("@CreatedFrom", entity.CreatedFrom);
-cmd.Parameters.AddWithValue("@LastUpdateBy", entity.LastUpdateBy);
-cmd.Parameters.AddWithValue("@LastUpdateAt", entity.LastUpdateAt);
-cmd.Parameters.AddWithValue("@LastUpdateFrom", entity.LastUpdateFrom);
+
 
 cmd.Parameters.Add("@Msg", SqlDbType.NChar, 500);
 cmd.Parameters["@Msg"].Direction = ParameterDirection.Output;
@@ -86,9 +84,6 @@ cmd.Parameters.AddWithValue("@CouponAmunt", entity.CouponAmunt);
 cmd.Parameters.AddWithValue("@Remarks", entity.Remarks);
 cmd.Parameters.AddWithValue("@IsActive", entity.IsActive);
 cmd.Parameters.AddWithValue("@IsArchive", entity.IsArchive);
-cmd.Parameters.AddWithValue("@CreatedBy", entity.CreatedBy);
-cmd.Parameters.AddWithValue("@CreatedAt", entity.CreatedAt);
-cmd.Parameters.AddWithValue("@CreatedFrom", entity.CreatedFrom);
 cmd.Parameters.AddWithValue("@LastUpdateBy", entity.LastUpdateBy);
 cmd.Parameters.AddWithValue("@LastUpdateAt", entity.LastUpdateAt);
 cmd.Parameters.AddWithValue("@LastUpdateFrom", entity.LastUpdateFrom);
